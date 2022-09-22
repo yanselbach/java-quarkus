@@ -14,30 +14,31 @@ Install https://github.com/devonfw/ide[devonfw-ide]:
 * Read and confirm the terms-of-use.
 * wait until the setup process has completed.
 
-== Create Project
+== Build Project
 
-Now we create a new `devon4j` project:
+Now we build our `app` project:
 
-* Go to folder `workspaces/main` in `devonfw-training`.
+* Go to folder `workspaces/main/java-quarkus/app` in `devonfw-training`.
 * In Windows-Explorer right-click it and select `Git Bash Here`.
-* In your `workspaces/main` folder run this command:
+* In the git-bash at this folder run the following command:
 +
 ```
-devon java create org.example.app
+mvn clean install -DskipTests
 ```
-* `cd app`
-* `mvn clean install`
 
 == Import into Eclipse
 
 Next, we import the new `app` project into our Eclipse IDE:
 
 * `devon eclipse`
-* In Eclipse `Import` as `Existing Maven Project`, there click `Browse` and choose your generated `app` folder.
-* Now select `SpringBootApp` from `app-core` and do `Run As` with option `Java Application`.
-* Visit http://localhost:8081 in your browser
-* Login as `waiter` with same password (see `BaseWebSecurityConfig.configureGlobal`).
+* In Eclipse `Import` as `Existing Maven Project`, there click `Browse` and choose your `app` folder in `workspaces/main/java-quarkus`.
+* Now find the green bug icon in the Eclipse toolbar and click on the down-arrow right to it.
+* Click `Debug Configuration` from the menu
+* In the appearing `Debug Configuration` popup window select `Quarkus application` from the list on the left.
+* Click on the first icon from the bar above that list (with tooltip `New launch configuration`)
+* Change the `Name` to `app` and ensure the `Project` is set to `app`.
+* Click on `Debug` to start your app in debug mode.
+* Open http://localhost:8080/ in your browser and you should see the quarkus welcome page of the app.
 
 == Links
-* https://github.com/devonfw/ide/blob/master/documentation/Home.asciidoc#devonfw-ide[devonfw-ide]
-* https://github.com/devonfw/ide/blob/master/documentation/migration-from-devonfw-3.0.0-or-lower.asciidoc[devonfw-ide: Migration Guide]
+* https://github.com/devonfw/ide/[devonfw-ide]
