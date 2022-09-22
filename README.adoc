@@ -1,0 +1,12 @@
+= devonfw Java Quarkus Training
+
+Training for the Java Stack (https://github.com/devonfw/devon4j[devon4j]) of https://devonfw.com[devonfw] using <a href="https://quarkus.io">Quarkus</a>.
+
+Agenda for exercises:
+
+* link:documentation/0-setup.asciidoc[0-setup]
+* link:documentation/1-dependency-injection.asciidoc[1-dependency-injection]
+* link:documentation/2-domain.asciidoc[2-dataacess]
+* link:documentation/3-logic.asciidoc[3-logic]
+* link:documentation/4-service.asciidoc[4-service]
+* link:documentation/5-access-control.asciidoc[5-access-control]
