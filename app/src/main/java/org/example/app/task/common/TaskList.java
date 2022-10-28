@@ -17,5 +17,4 @@ public interface TaskList extends ApplicationEntity {
    * @param title new value of {@link #getTitle()}.
    */
   void setTitle(String title);
-
 }

@@ -11,6 +11,8 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
 
   private TaskState state;
 
+  private Long taskListId;
+
   @Override
   public String getTitle() {
 
@@ -33,6 +35,16 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
   public void setState(TaskState state) {
 
     this.state = state;
+  }
+
+  @Override
+  public Long getTaskListId() {
+    return taskListId;
+  }
+
+  @Override
+  public void setTaskListId(Long taskListId) {
+    this.taskListId = taskListId;
   }
 
 }

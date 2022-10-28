@@ -27,4 +27,7 @@ public interface TaskItem extends ApplicationEntity {
    */
   void setState(TaskState state);
 
+  Long getTaskListId();
+
+  void setTaskListId(Long taskListId);
 }

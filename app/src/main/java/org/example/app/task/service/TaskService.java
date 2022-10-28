@@ -1,15 +1,15 @@
 package org.example.app.task.service;
 
+import org.example.app.task.common.TaskListEto;
+import org.example.app.task.logic.UcFindTaskList;
+import org.example.app.task.logic.UcSaveTaskList;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-
-import org.example.app.task.common.TaskListEto;
-import org.example.app.task.logic.UcFindTaskList;
-import org.example.app.task.logic.UcSaveTaskList;
 
 /**
  * Rest service for {@link org.example.app.task.common.TaskList}.
@@ -29,13 +29,13 @@ public class TaskService {
 
     TaskListEto task = this.ucFindTaskList.findById(id);
     if (task == null) {
-      throw new NotFoundException("taks with id " + id + " does not exist.");
+      throw new NotFoundException("Tasklist with id " + id + " does not exist.");
     }
     return task;
   }
 
   @POST
-  @Path("/list")
+  @Path("/save")
   public void saveTask(TaskListEto task) {
 
     this.ucSaveTaskList.save(task);
