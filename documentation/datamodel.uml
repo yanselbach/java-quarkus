@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-257.6666666666667" y="-29.333333333333343">org.example.app.task.common.TaskList</node>
+    <node x="213.83333333333337" y="-62.33333333333334">org.example.app.task.common.TaskItem</node>
+    <node x="-331.6666666666667" y="172.99999999999997">org.example.app.task.domain.TaskListEntity</node>
+    <node x="205.33333333333337" y="139.99999999999997">org.example.app.task.domain.TaskItemEntity</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.example.app.task.domain.TaskListEntity" target="org.example.app.task.domain.TaskItemEntity" relationship="TO_MANY">
+      <point x="121.5" y="0.0" />
+      <point x="-96.0" y="0.0" />
+    </edge>
+    <edge source="org.example.app.task.domain.TaskItemEntity" target="org.example.app.task.domain.TaskListEntity" relationship="TO_ONE">
+      <point x="-96.0" y="-15.0" />
+      <point x="121.5" y="-15.0" />
+    </edge>
+    <edge source="org.example.app.task.domain.TaskItemEntity" target="org.example.app.task.common.TaskItem" relationship="REALIZATION">
+      <point x="0.0" y="-71.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
+    <edge source="org.example.app.task.domain.TaskItemEntity" target="org.example.app.task.domain.TaskListEntity" relationship="CREATE">
+      <point x="-96.0" y="15.0" />
+      <point x="121.5" y="15.0" />
+    </edge>
+    <edge source="org.example.app.task.domain.TaskListEntity" target="org.example.app.task.common.TaskList" relationship="REALIZATION">
+      <point x="4.0" y="-38.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.5" showDependencies="true" x="103.0" y="140.33333333333331" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -4,11 +4,13 @@ import org.example.app.general.domain.ApplicationPersistenceEntity;
 import org.example.app.task.common.TaskItem;
 import org.example.app.task.common.TaskState;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.time.LocalDateTime;
 
 /**
  * {@link TaskItem} implementation as {@link ApplicationPersistenceEntity}.
@@ -17,19 +19,24 @@ import javax.persistence.Transient;
 @Table(name = "TASK_ITEM")
 public class TaskItemEntity extends ApplicationPersistenceEntity implements TaskItem {
 
+  @Column
   private String title;
 
+  @Column
   private TaskState state;
+
+  @Column
+  private LocalDateTime deadline;
 
   @ManyToOne
   @JoinColumn(name = "task_list_id")
   private TaskListEntity taskListEntity;
 
-  public TaskListEntity getTaskListEntitys() {
+  public TaskListEntity getTaskListEntity() {
     return taskListEntity;
   }
 
-  public void setTaskListEntitys(TaskListEntity taskListEntity) {
+  public void setTaskListEntity(TaskListEntity taskListEntity) {
     this.taskListEntity = taskListEntity;
   }
 
@@ -51,6 +58,16 @@ public class TaskItemEntity extends ApplicationPersistenceEntity implements Task
   @Override
   public void setState(TaskState state) {
     this.state = state;
+  }
+
+  @Override
+  public LocalDateTime getDeadline() {
+    return deadline;
+  }
+
+  @Override
+  public void setDeadline(LocalDateTime deadline) {
+    this.deadline = deadline;
   }
 
   @Override

@@ -2,6 +2,8 @@ package org.example.app.task.common;
 
 import org.example.app.general.common.AbstractEto;
 
+import java.time.LocalDateTime;
+
 /**
  * {@link TaskItem} implementation as {@link AbstractEto}.
  */
@@ -12,6 +14,8 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
   private TaskState state;
 
   private Long taskListId;
+
+  private LocalDateTime deadline;
 
   @Override
   public String getTitle() {
@@ -47,4 +51,12 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
     this.taskListId = taskListId;
   }
 
+  public LocalDateTime getDeadline() {
+    return deadline;
+  }
+
+  @Override
+  public void setDeadline(LocalDateTime deadline) {
+    this.deadline = deadline;
+  }
 }

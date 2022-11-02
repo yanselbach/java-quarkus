@@ -3,6 +3,7 @@ package org.example.app.task.domain;
 import org.example.app.general.domain.ApplicationPersistenceEntity;
 import org.example.app.task.common.TaskList;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -15,6 +16,7 @@ import java.util.List;
 @Table(name = "TASK_LIST")
 public class TaskListEntity extends ApplicationPersistenceEntity implements TaskList {
 
+  @Column
   private String title;
 
   @OneToMany(mappedBy = "taskListEntity")

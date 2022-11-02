@@ -2,6 +2,8 @@ package org.example.app.task.common;
 
 import org.example.app.general.common.ApplicationEntity;
 
+import java.time.LocalDateTime;
+
 /**
  * {@link ApplicationEntity} for a single task item.
  */
@@ -30,4 +32,8 @@ public interface TaskItem extends ApplicationEntity {
   Long getTaskListId();
 
   void setTaskListId(Long taskListId);
+
+  LocalDateTime getDeadline();
+
+  void setDeadline(LocalDateTime deadline);
 }
