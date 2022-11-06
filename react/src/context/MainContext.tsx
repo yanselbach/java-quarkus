@@ -1,9 +1,9 @@
-import { TodoType } from "../types";
+import { TaskItemType } from "../types";
 import { createContext, useState, useEffect, ReactNode } from "react";
 
 interface MainContextInterface {
-  todos: TodoType[];
-  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
+  todos: TaskItemType[];
+  setTodos: React.Dispatch<React.SetStateAction<TaskItemType[]>>;
   markComplete: (id: string) => void;
   delTodo: (id: string) => void;
   deleteAll: () => void;
@@ -20,7 +20,7 @@ interface Props {
 export const MainContext = createContext<MainContextInterface | null>(null);
 
 export const MainProvider = ({ children }: Props) => {
-  const [todos, setTodos] = useState<TodoType[]>(
+  const [todos, setTodos] = useState<TaskItemType[]>(
     JSON.parse(localStorage.getItem("todos")!) || []
   );
 
@@ -72,7 +72,7 @@ export const MainProvider = ({ children }: Props) => {
     setTodos(orderTodos);
   };
 
-  const orderStarAndComplete = (todos: TodoType[]) => {
+  const orderStarAndComplete = (todos: TaskItemType[]) => {
     todos.sort((x, y) => y.starred - x.starred);
     todos.sort((x, y) => x.completed - y.completed);
   };

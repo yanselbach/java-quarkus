@@ -1,4 +1,4 @@
-import { TodoType } from "../../types";
+import { TaskItemType } from "../../types";
 import { Typography, IconButton, Menu, MenuItem } from "@material-ui/core";
 import {
   DeleteTwoTone as DeleteIcon,
@@ -40,7 +40,7 @@ interface Props {
   deleteTodo: (e: any) => void;
   setEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
   markStar: (id: string) => void;
-  todo: TodoType;
+  todo: TaskItemType;
 }
 
 enum OptionName {

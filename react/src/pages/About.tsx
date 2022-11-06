@@ -2,7 +2,6 @@ import { Container } from "@material-ui/core";
 import {
   GitHub,
   YouTube,
-  Instagram,
     Group
 } from "@material-ui/icons";
 

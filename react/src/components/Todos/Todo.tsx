@@ -1,4 +1,4 @@
-import { TodoType } from "../../types";
+import { TaskItemType } from "../../types";
 import React, { useState, useContext, forwardRef } from "react";
 import { DeleteConfirm } from "../Actions/DeleteConfirm";
 import EditConfirm from "../Actions/EditConfirm";
@@ -19,7 +19,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { MainContext } from "../../context/MainContext";
 
 interface Props {
-  todo: TodoType;
+  todo: TaskItemType;
   index: number;
   onDelete: () => void;
   onEdit: () => void;
