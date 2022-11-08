@@ -1,13 +1,15 @@
 package org.example.app.task.domain;
 
-import org.example.app.general.domain.ApplicationPersistenceEntity;
-import org.example.app.task.common.TaskList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.List;
+
+import org.example.app.general.domain.ApplicationPersistenceEntity;
+import org.example.app.task.common.TaskList;
 
 /**
  * {@link TaskList} implementation as {@link ApplicationPersistenceEntity}.
@@ -19,8 +21,8 @@ public class TaskListEntity extends ApplicationPersistenceEntity implements Task
   @Column
   private String title;
 
-  @OneToMany(mappedBy = "taskListEntity")
-  private List<TaskItemEntity> taskItemEntitys;
+  @OneToMany(mappedBy = "taskList", fetch = FetchType.LAZY)
+  private List<TaskItemEntity> items;
 
   @Override
   public String getTitle() {
@@ -34,11 +36,19 @@ public class TaskListEntity extends ApplicationPersistenceEntity implements Task
     this.title = title;
   }
 
-  public List<TaskItemEntity> getTaskItemEntitys() {
-    return taskItemEntitys;
+  /**
+   * @return the {@link List} of {@link TaskItemEntity task-items} in this task-list.
+   */
+  public List<TaskItemEntity> getItems() {
+
+    return this.items;
   }
 
-  public void setTaskItemEntitys(List<TaskItemEntity> taskItems) {
-    this.taskItemEntitys = taskItems;
+  /**
+   * @param taskItems the new value of {@link #getItems()}.
+   */
+  public void setItems(List<TaskItemEntity> taskItems) {
+
+    this.items = taskItems;
   }
 }

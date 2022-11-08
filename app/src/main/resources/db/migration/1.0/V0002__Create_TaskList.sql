@@ -1,0 +1,6 @@
+CREATE TABLE "TASK_LIST" (
+  ID                      NUMBER(19) NOT NULL,
+  VERSION                 NUMBER(19) NOT NULL,
+  TITLE                   VARCHAR(64) NOT NULL,
+  CONSTRAINT PK_TASK_LIST PRIMARY KEY (ID)
+)
