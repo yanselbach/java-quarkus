@@ -1,5 +1,8 @@
 package org.example.app.task.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.app.task.common.TaskItemEto;
 import org.example.app.task.domain.TaskItemEntity;
 import org.mapstruct.Mapper;
@@ -11,14 +14,27 @@ import org.mapstruct.Mapper;
 public interface TaskItemMapper {
 
   /**
-   * @param task the {@link TaskItemEntity} to map.
-   * @return the mapped {@link TaskItemEto}.
+   * @param items the {@link List} of {@link TaskItemEntity items} to convert.
+   * @return the {@link List} of converted {@link TaskItemEto}s.
    */
-  TaskItemEto toEto(TaskItemEntity task);
+  default List<TaskItemEto> toEtos(List<TaskItemEntity> items) {
+
+    List<TaskItemEto> etos = new ArrayList<>(items.size());
+    for (TaskItemEntity item : items) {
+      etos.add(toEto(item));
+    }
+    return etos;
+  }
 
   /**
-   * @param task the {@link TaskItemEto} to map.
+   * @param item the {@link TaskItemEntity} to map.
+   * @return the mapped {@link TaskItemEto}.
+   */
+  TaskItemEto toEto(TaskItemEntity item);
+
+  /**
+   * @param item the {@link TaskItemEto} to map.
    * @return the mapped {@link TaskItemEntity}.
    */
-  TaskItemEntity toEntity(TaskItemEto task);
+  TaskItemEntity toEntity(TaskItemEto item);
 }

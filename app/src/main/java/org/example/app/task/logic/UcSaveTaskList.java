@@ -16,10 +16,10 @@ import org.example.app.task.domain.TaskListRepository;
 public class UcSaveTaskList {
 
   @Inject
-  TaskListRepository taskRepository;
+  TaskListRepository taskListRepository;
 
   @Inject
-  TaskListMapper taskMapper;
+  TaskListMapper taskListMapper;
 
   /**
    * @param list the {@link TaskListEto} to save.
@@ -28,8 +28,8 @@ public class UcSaveTaskList {
   // @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_SAVE_TASK_LIST)
   public Long save(TaskListEto list) {
 
-    TaskListEntity entity = this.taskMapper.toEntity(list);
-    entity = this.taskRepository.save(entity);
+    TaskListEntity entity = this.taskListMapper.toEntity(list);
+    entity = this.taskListRepository.save(entity);
     return entity.getId();
   }
 

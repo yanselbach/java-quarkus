@@ -21,7 +21,7 @@ public class UcFindTaskItem {
   TaskItemRepository taskItemRepository;
 
   @Inject
-  TaskItemMapper taskMapper;
+  TaskItemMapper taskItemMapper;
 
   /**
    * @param itemId the {@link TaskItemEntity#getId() primary key} of the {@link TaskItemEntity} to find.
@@ -32,7 +32,7 @@ public class UcFindTaskItem {
   public TaskItemEto findById(Long itemId) {
 
     Optional<TaskItemEntity> item = this.taskItemRepository.findById(itemId);
-    return item.map(entity -> this.taskMapper.toEto(entity)).orElse(null);
+    return item.map(entity -> this.taskItemMapper.toEto(entity)).orElse(null);
   }
 
 }

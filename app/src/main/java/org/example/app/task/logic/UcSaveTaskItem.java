@@ -16,10 +16,10 @@ import org.example.app.task.domain.TaskItemRepository;
 public class UcSaveTaskItem {
 
   @Inject
-  TaskItemRepository taskRepository;
+  TaskItemRepository taskItemRepository;
 
   @Inject
-  TaskItemMapper taskMapper;
+  TaskItemMapper taskItemMapper;
 
   /**
    * @param item the {@link TaskItemEto} to save.
@@ -28,8 +28,8 @@ public class UcSaveTaskItem {
   // @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_SAVE_TASK_ITEM)
   public Long save(TaskItemEto item) {
 
-    TaskItemEntity entity = this.taskMapper.toEntity(item);
-    entity = this.taskRepository.save(entity);
+    TaskItemEntity entity = this.taskItemMapper.toEntity(item);
+    entity = this.taskItemRepository.save(entity);
     return entity.getId();
   }
 
