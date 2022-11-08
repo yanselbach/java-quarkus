@@ -1,8 +1,8 @@
 package org.example.app.task.common;
 
-import org.example.app.general.common.ApplicationEntity;
-
 import java.time.LocalDateTime;
+
+import org.example.app.general.common.ApplicationEntity;
 
 /**
  * {@link ApplicationEntity} for a single task item.
@@ -20,20 +20,42 @@ public interface TaskItem extends ApplicationEntity {
   void setTitle(String title);
 
   /**
-   * @return the {@link TaskState} of this item.
+   * @return {@code true} if this task is completed (done), {@code false} otherwise.
    */
-  TaskState getState();
+  boolean isCompleted();
 
   /**
-   * @param state the new value of {@link #getState()}.
+   * @param completed new value of {@link #isCompleted()}.
    */
-  void setState(TaskState state);
+  void setCompleted(boolean completed);
 
-  Long getTaskListId();
+  /**
+   * @return {@code true} if this task is starred (marked as favorite), {@code false} otherwise.
+   */
+  boolean isStarred();
 
-  void setTaskListId(Long taskListId);
+  /**
+   * @param starred new value of {@link #isStarred()}.
+   */
+  void setStarred(boolean starred);
 
+  /**
+   * @return the deadline as until this task shall be {@link #isCompleted() completed}.
+   */
   LocalDateTime getDeadline();
 
+  /**
+   * @param deadline the new value of {@link #getDeadline()}.
+   */
   void setDeadline(LocalDateTime deadline);
+
+  /**
+   * @return the {@link TaskList#getId() primary key} of the owning {@link TaskList}.
+   */
+  Long getTaskListId();
+
+  /**
+   * @param taskListId the new value of {@link #getTaskListId()}.
+   */
+  void setTaskListId(Long taskListId);
 }

@@ -51,4 +51,16 @@ public class TaskListEntity extends ApplicationPersistenceEntity implements Task
 
     this.items = taskItems;
   }
+
+  @Override
+  public String toString() {
+
+    String result = this.title;
+    Long id = getId();
+    if (id == null) {
+      result = result + '[' + id + ']';
+    }
+    return result;
+  }
+
 }

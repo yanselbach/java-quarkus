@@ -11,7 +11,6 @@ import javax.persistence.Table;
 
 import org.example.app.general.domain.ApplicationPersistenceEntity;
 import org.example.app.task.common.TaskItem;
-import org.example.app.task.common.TaskState;
 
 /**
  * {@link TaskItem} implementation as {@link ApplicationPersistenceEntity}.
@@ -20,13 +19,16 @@ import org.example.app.task.common.TaskState;
 @Table(name = "TASK_ITEM")
 public class TaskItemEntity extends ApplicationPersistenceEntity implements TaskItem {
 
-  @Column
+  @Column(name = "TITLE")
   private String title;
 
-  @Column
-  private TaskState state;
+  @Column(name = "COMPLETED")
+  private boolean completed;
 
-  @Column
+  @Column(name = "STARRED")
+  private boolean starred;
+
+  @Column(name = "DEADLINE")
   private LocalDateTime deadline;
 
   @ManyToOne(fetch = FetchType.LAZY)
@@ -83,15 +85,27 @@ public class TaskItemEntity extends ApplicationPersistenceEntity implements Task
   }
 
   @Override
-  public TaskState getState() {
+  public boolean isCompleted() {
 
-    return this.state;
+    return this.completed;
   }
 
   @Override
-  public void setState(TaskState state) {
+  public void setCompleted(boolean completed) {
 
-    this.state = state;
+    this.completed = completed;
+  }
+
+  @Override
+  public boolean isStarred() {
+
+    return this.starred;
+  }
+
+  @Override
+  public void setStarred(boolean starred) {
+
+    this.starred = starred;
   }
 
   @Override
@@ -104,6 +118,17 @@ public class TaskItemEntity extends ApplicationPersistenceEntity implements Task
   public void setDeadline(LocalDateTime deadline) {
 
     this.deadline = deadline;
+  }
+
+  @Override
+  public String toString() {
+
+    String result = this.title;
+    Long id = getId();
+    if (id == null) {
+      result = result + '[' + id + ']';
+    }
+    return result;
   }
 
 }

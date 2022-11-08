@@ -1,8 +1,8 @@
 package org.example.app.task.common;
 
-import org.example.app.general.common.AbstractEto;
-
 import java.time.LocalDateTime;
+
+import org.example.app.general.common.AbstractEto;
 
 /**
  * {@link TaskItem} implementation as {@link AbstractEto}.
@@ -11,7 +11,9 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
 
   private String title;
 
-  private TaskState state;
+  private boolean completed;
+
+  private boolean starred;
 
   private Long taskListId;
 
@@ -30,33 +32,50 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
   }
 
   @Override
-  public TaskState getState() {
+  public boolean isCompleted() {
 
-    return this.state;
+    return this.completed;
   }
 
   @Override
-  public void setState(TaskState state) {
+  public void setCompleted(boolean completed) {
 
-    this.state = state;
+    this.completed = completed;
+  }
+
+  @Override
+  public boolean isStarred() {
+
+    return this.starred;
+  }
+
+  @Override
+  public void setStarred(boolean starred) {
+
+    this.starred = starred;
   }
 
   @Override
   public Long getTaskListId() {
-    return taskListId;
+
+    return this.taskListId;
   }
 
   @Override
   public void setTaskListId(Long taskListId) {
+
     this.taskListId = taskListId;
   }
 
+  @Override
   public LocalDateTime getDeadline() {
-    return deadline;
+
+    return this.deadline;
   }
 
   @Override
   public void setDeadline(LocalDateTime deadline) {
+
     this.deadline = deadline;
   }
 }
