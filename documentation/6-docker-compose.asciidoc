@@ -1,12 +1,23 @@
 :toc: macro
 toc::[]
 
-= Containerization - Docker Compose
+= Containerization
+In this exercise we will launch our application in a container. For this we have to build the image, deploy it in Rancher Desktop and update it when we change something in our application.
+
+== Get to know Docker and Rancher Desktop
+
+* Run in a CLI `docker images`. What do you see?
+* Check in CLI if docker containers are running. What do you see?
+* Build our application with maven and package it
+* Create a docker file describing the image for our application
+* Add the container description to the docker-compose file
+
+== Docker Compose
 
 Now, we will containerize our application.
 We will learn how to run docker compose with postgres, our application and keycloak as well how to navigate inside of a container.
 
-== Running with docker
+=== Running with docker
 
 Familiarize yourself with the structure of `Dockerfile.jvm` and `docker-compose.yaml`
 
@@ -28,16 +39,19 @@ First create a separate network for the database and app by running: :
 
 * Check created containers running `docker ps`
 
-== Run docker compose
+=== Run docker compose
 
 To run the containers you had to execute many commands.
 It would be easier if we only had to execute one command. We can achieve this by using Docker Compose.
 
-=== Running Docker compose
+==== Running Docker compose
 Start application by running
 Stop the application by running
 
-=== Links
+== Links
 
+* https://www.docker.com/
+* https://docs.docker.com/compose/
+* https://rancherdesktop.io/
 * https://docs.docker.com/compose/compose-file/compose-file-v3/[Docker compose 3 reference documentation]
 * https://github.com/devonfw/devon4j/blob/develop/documentation/guide-security.asciidoc#security[devon4j: Security]
