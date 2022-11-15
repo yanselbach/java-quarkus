@@ -1,3 +1,5 @@
+-- in a real project you would put test-data in src/test/resources/db/migration but master-data could be inserted here...
+
 INSERT INTO TASK_LIST (ID, VERSION, TITLE) VALUES (1, 0, 'Shopping List');
 INSERT INTO TASK_LIST (ID, VERSION, TITLE) VALUES (2, 0, 'DIY Store List');
 INSERT INTO TASK_LIST (ID, VERSION, TITLE) VALUES (3, 0, 'Holiday List');
