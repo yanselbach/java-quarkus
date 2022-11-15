@@ -1,4 +1,4 @@
-package org.example.app.task.domain;
+package org.example.app.task.dataaccess;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.example.app.general.domain.ApplicationPersistenceEntity;
+import org.example.app.general.dataaccess.ApplicationPersistenceEntity;
 import org.example.app.task.common.TaskItem;
 
 /**

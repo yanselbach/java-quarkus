@@ -7,8 +7,8 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import org.example.app.task.common.TaskItemEto;
-import org.example.app.task.domain.TaskItemEntity;
-import org.example.app.task.domain.TaskItemRepository;
+import org.example.app.task.dataaccess.TaskItemEntity;
+import org.example.app.task.dataaccess.TaskItemRepository;
 
 /**
  * Use-Case to find {@link TaskItemEntity task-items}.

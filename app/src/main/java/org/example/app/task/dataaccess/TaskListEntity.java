@@ -1,4 +1,4 @@
-package org.example.app.task.domain;
+package org.example.app.task.dataaccess;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.example.app.general.domain.ApplicationPersistenceEntity;
+import org.example.app.general.dataaccess.ApplicationPersistenceEntity;
 import org.example.app.task.common.TaskList;
 
 /**

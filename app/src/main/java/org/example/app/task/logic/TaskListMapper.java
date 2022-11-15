@@ -1,7 +1,7 @@
 package org.example.app.task.logic;
 
 import org.example.app.task.common.TaskListEto;
-import org.example.app.task.domain.TaskListEntity;
+import org.example.app.task.dataaccess.TaskListEntity;
 import org.mapstruct.Mapper;
 
 /**

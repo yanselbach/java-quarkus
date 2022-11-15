@@ -1,4 +1,4 @@
-package org.example.app.general.domain;
+package org.example.app.general.dataaccess;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

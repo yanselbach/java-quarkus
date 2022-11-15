@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.app.task.common.TaskItemEto;
-import org.example.app.task.domain.TaskItemEntity;
+import org.example.app.task.dataaccess.TaskItemEntity;
 import org.mapstruct.Mapper;
 
 /**

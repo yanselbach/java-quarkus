@@ -5,7 +5,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import org.example.app.task.common.TaskListEto;
-import org.example.app.task.domain.TaskListRepository;
+import org.example.app.task.dataaccess.TaskListRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +22,8 @@ public class UcDeleteTaskList {
   TaskListRepository taskListRepository;
 
   /**
-   * @param id the {@link org.example.app.task.domain.TaskListEntity#getId() primary key} of the
-   *        {@link org.example.app.task.domain.TaskListEntity} to delete.
+   * @param id the {@link org.example.app.task.dataaccess.TaskListEntity#getId() primary key} of the
+   *        {@link org.example.app.task.dataaccess.TaskListEntity} to delete.
    */
   // @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_DELETE_TASK_ITEM)
   public void delete(Long id) {

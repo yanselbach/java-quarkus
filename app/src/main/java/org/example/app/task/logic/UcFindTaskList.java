@@ -8,8 +8,8 @@ import javax.transaction.Transactional;
 
 import org.example.app.task.common.TaskListCto;
 import org.example.app.task.common.TaskListEto;
-import org.example.app.task.domain.TaskListEntity;
-import org.example.app.task.domain.TaskListRepository;
+import org.example.app.task.dataaccess.TaskListEntity;
+import org.example.app.task.dataaccess.TaskListRepository;
 
 /**
  * Use-Case to find {@link TaskListEntity task-lists}.

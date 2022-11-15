@@ -1,4 +1,4 @@
-package org.example.app.task.domain;
+package org.example.app.task.dataaccess;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

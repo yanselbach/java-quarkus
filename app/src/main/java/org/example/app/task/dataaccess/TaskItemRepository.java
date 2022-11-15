@@ -1,4 +1,4 @@
-package org.example.app.task.domain;
+package org.example.app.task.dataaccess;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 /**
  * Interface for the {@link JpaRepository} giving database access to {@link TaskItemEntity}.
  */
-public interface TaskItemRepository extends JpaRepository<TaskItemEntity, Long> {
+public interface TaskItemRepository extends JpaRepository<TaskItemEntity, Long>, TaskItemQueryFragment {
 
   /**
    * @param completed - the {@link TaskItemEntity#isCompleted() completed} flag.
