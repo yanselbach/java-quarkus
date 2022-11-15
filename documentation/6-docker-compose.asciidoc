@@ -34,10 +34,10 @@ To run the containers you had to execute many commands.
 It would be easier if we only had to execute one command. We can achieve this by using Docker Compose.
 
 === Running Docker compose
-
+Start application by running
 Stop the application by running
 
 === Links
 
-* https://github.com/devonfw/devon4j/blob/develop/documentation/guide-access-control.asciidoc#access-control[devon4j: Access-Control]
+* https://docs.docker.com/compose/compose-file/compose-file-v3/[Docker compose 3 reference documentation]
 * https://github.com/devonfw/devon4j/blob/develop/documentation/guide-security.asciidoc#security[devon4j: Security]
