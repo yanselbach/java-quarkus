@@ -27,18 +27,28 @@ public class TaskItemRepositoryTest extends Assertions {
   @Test
   public void testFindByFlags() {
 
-    List<TaskItemEntity> hits = this.taskItemRepository.findByFlags(false, true);
-    // testdata currently not working due to hibernate drop-and-create
-    // assertThat(hits).hasSize(xxx);
+    // given
+    boolean completed = false;
+    boolean starred = true;
+
+    // when
+    List<TaskItemEntity> hits = this.taskItemRepository.findByFlags(completed, starred);
+
+    assertThat(hits.stream().map(i -> i.getTitle())).contains("Milk", "Butter", "Bread", "Jigsaw", "Sunscreen",
+        "Wetsuit", "Swimsuit", "Surfboard", "Flip-flops", "Diamond ring");
   }
 
   @Test
   public void testFindByDeadline() {
 
+    // given
     LocalDateTime deadline = LocalDateTime.of(2022, 12, 22, 23, 59);
+
+    // when
     List<TaskItemEntity> hits = this.taskItemRepository.findByDeadline(deadline);
-    // testdata currently not working due to hibernate drop-and-create
-    // assertThat(hits).hasSize(xxx);
+
+    // then
+    assertThat(hits.stream().map(i -> i.getTitle())).contains("Diamond ring", "Lingerie");
   }
 
   @Test
@@ -46,7 +56,7 @@ public class TaskItemRepositoryTest extends Assertions {
 
     // given
     TaskItemSearchCriteria criteria = new TaskItemSearchCriteria();
-    criteria.setCompleted(Boolean.FALSE);
+    criteria.setCompleted(Boolean.TRUE);
     criteria.setTitle("*e*");
     criteria.setTitleOptions(StringSearchOptions.of(LikePatternSyntax.GLOB));
     criteria.getSort().add(SortOrderBy.ofAsc("title"));
@@ -56,7 +66,7 @@ public class TaskItemRepositoryTest extends Assertions {
 
     // then
     assertThat(page).isNotNull();
-    // assertThat(page).isNotEmpty();
+    assertThat(page.getContent().stream().map(i -> i.getTitle())).containsExactly("Lingerie", "Super-Glue");
   }
 
 }
