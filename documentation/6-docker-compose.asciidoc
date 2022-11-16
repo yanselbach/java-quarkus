@@ -45,8 +45,49 @@ To run the containers you had to execute many commands.
 It would be easier if we only had to execute one command. We can achieve this by using Docker Compose.
 
 ==== Running Docker compose
-Start application by running
-Stop the application by running
+Docker Compose works by applying many rules declared within a single docker-compose.yml configuration file.
+
+* Start application by running `docker-compose up`
+
+With this command we started container for our backend app, database and keycloak.
+This images are defined as services in docker compose. A volume is a shared directory in the host, visible from some or all containers.
+Similarly, networks define the communication rules between containers, and between a container and the host.
+
+* To list all build images run `docker-compose images`
+
+* Run this command to see that the containers arte up and running `docker-compose ps`
+
+
+==== Access the database
+Now we will access Postgres using psql.
+
+* Connect to Postgres with this command
+`docker exec -it <name of your db container> bash`
+
+Now you are ‘inside’ your container.
+
+* Connect to qour quarkus database:
+`psql -h localhost -p 5432 -U <name of db user> -W`
+
+* List all available databases inside of your container with `\l`
+
+* List all tables that were created with `\dt`, press "Enter" to show more tables.
+
+==== Access keycloak
+Keycloak is an open source identity and access management solution which mainly aims at applications and services. Users can authenticate with Keycloak rather than individual applications. So, the applications don't have to deal with login forms, authenticating users and storing users.
+
+* Access Keycloak bei call the URL `localhost:<keycloak port from docker compose>`
+
+* Go to "Administration Console" and enter the user login data from docker compose
+
+* Navigate to users > view all users. Here you can see your admin-user.
+
+==== Stop services with Docker compose
+
+* To safely stop the active services, we can use stop, which will preserve containers, volumes, and networks, along with every modification made to them `docker-compose stop`
+
+* To reset the status of our project, we can simply run down, which will destroy everything with the exception of external volumes `docker-compose down`
+
 
 == Links
 
@@ -54,4 +95,4 @@ Stop the application by running
 * https://docs.docker.com/compose/
 * https://rancherdesktop.io/
 * https://docs.docker.com/compose/compose-file/compose-file-v3/[Docker compose 3 reference documentation]
-* https://github.com/devonfw/devon4j/blob/develop/documentation/guide-security.asciidoc#security[devon4j: Security]
+
