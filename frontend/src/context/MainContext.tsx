@@ -1,5 +1,5 @@
-import { TaskItemType } from "../types";
-import { createContext, useState, useEffect, ReactNode } from "react";
+import {TaskItemType} from "../types";
+import {createContext, ReactNode, useEffect, useState} from "react";
 
 interface MainContextInterface {
   todos: TaskItemType[];
@@ -30,15 +30,36 @@ export const MainProvider = ({ children }: Props) => {
 
   const addTodo = (title: string) => {
     if (title.trim()) {
-      const newTodo = {
-        id: String(Math.random() * 5000),
+      const taskItem = {
+        // id: String(Math.random() * 5000),
         title,
         completed: false,
         starred: false,
+        taskListId: 1,
+        //deadline: ""
       };
-      const orderTodos = [newTodo, ...todos];
-      orderStarAndComplete(orderTodos);
-      setTodos(orderTodos);
+
+      // Send data to the backend via POST
+      fetch('http://localhost:8080/task/item/save', {  // Enter your IP address here
+
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskItem) // body data type must match "Content-Type" header
+
+      })
+      .then((response) => response.json())
+      .then((newId) => {
+          const savedItem = [Object.assign({id: "" + newId}, taskItem)];
+          const orderTodos = [savedItem, ...todos];
+          orderStarAndComplete(savedItem);
+          setTodos(savedItem);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
     }
   };
   const editTodo: (id: string, text: string) => void = (

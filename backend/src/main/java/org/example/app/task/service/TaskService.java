@@ -1,13 +1,5 @@
 package org.example.app.task.service;
 
-import javax.inject.Inject;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-
 import org.example.app.task.common.TaskItemEto;
 import org.example.app.task.common.TaskListCto;
 import org.example.app.task.common.TaskListEto;
@@ -17,6 +9,14 @@ import org.example.app.task.logic.UcFindTaskItem;
 import org.example.app.task.logic.UcFindTaskList;
 import org.example.app.task.logic.UcSaveTaskItem;
 import org.example.app.task.logic.UcSaveTaskList;
+
+import javax.inject.Inject;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 /**
  * Rest service for {@link org.example.app.task.common.TaskList}.
@@ -97,9 +97,9 @@ public class TaskService {
    */
   @POST
   @Path("/item/save")
-  public void saveTaskItem(TaskItemEto item) {
+  public Long saveTaskItem(TaskItemEto item) {
 
-    this.ucSaveTaskItem.save(item);
+    return this.ucSaveTaskItem.save(item);
   }
 
   /**
