@@ -47,7 +47,7 @@ public class TaskService {
    */
   @POST
   @Path("/list/save")
-  public void saveTask(TaskListEto task) {
+  public void saveTaskList(TaskListEto task) {
 
     this.ucSaveTaskList.save(task);
   }
