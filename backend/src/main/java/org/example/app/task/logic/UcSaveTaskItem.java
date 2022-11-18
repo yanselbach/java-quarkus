@@ -1,12 +1,13 @@
 package org.example.app.task.logic;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.transaction.Transactional;
-
 import org.example.app.task.common.TaskItemEto;
 import org.example.app.task.dataaccess.TaskItemEntity;
 import org.example.app.task.dataaccess.TaskItemRepository;
+import org.example.app.task.dataaccess.TaskListRepository;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
 
 /**
  * Use-Case to save {@link org.example.app.task.common.TaskItem}s.
@@ -21,6 +22,9 @@ public class UcSaveTaskItem {
   @Inject
   TaskItemMapper taskItemMapper;
 
+  @Inject
+  TaskListRepository taskListRepository;
+
   /**
    * @param item the {@link TaskItemEto} to save.
    * @return the {@link TaskItemEntity#getId() primary key} of the saved {@link TaskItemEntity}.
@@ -28,9 +32,12 @@ public class UcSaveTaskItem {
   // @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_SAVE_TASK_ITEM)
   public Long save(TaskItemEto item) {
 
-    TaskItemEntity entity = this.taskItemMapper.toEntity(item);
-    entity = this.taskItemRepository.save(entity);
-    return entity.getId();
+    final TaskItemEntity entity = this.taskItemMapper.toEntity(item);
+    if (item.getTaskListId() != null) {
+      taskListRepository.findById(item.getTaskListId()).ifPresent(entity::setTaskList);
+    }
+    TaskItemEntity savedEntity = this.taskItemRepository.save(entity);
+    return savedEntity.getId();
   }
 
 }

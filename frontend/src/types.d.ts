@@ -3,4 +3,5 @@ export interface TaskItemType {
   title: string;
   completed: any;
   starred: any;
+  taskListId: number;
 }
