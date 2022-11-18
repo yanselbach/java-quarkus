@@ -28,37 +28,39 @@ export const MainProvider = ({ children }: Props) => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
+  const saveTaskItem = (taskItem: TaskItemType, onSuccess: ((value: String) => any)) => {
+    // Send data to the backend via POST
+    fetch('http://localhost:8080/task/item/save', {  // Enter your IP address here
+
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(taskItem) // body data type must match "Content-Type" header
+
+    })
+        .then((response) => response.json())
+        .then(onSuccess)
+        .catch((error) => {
+          console.error(error);
+        });
+  }
+
   const addTodo = (title: string) => {
     if (title.trim()) {
-      const taskItem = {
-        // id: String(Math.random() * 5000),
+      const taskItem: TaskItemType = {
+        id: "",
         title,
         completed: false,
         starred: false,
-        taskListId: 1,
-        //deadline: ""
-      };
-
-      // Send data to the backend via POST
-      fetch('http://localhost:8080/task/item/save', {  // Enter your IP address here
-
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(taskItem) // body data type must match "Content-Type" header
-
-      })
-      .then((response) => response.json())
-      .then((newId) => {
-          const savedItem = Object.assign({id: "" + newId}, taskItem);
-          const orderTodos = [savedItem, ...todos];
-          orderStarAndComplete(orderTodos);
-          setTodos(orderTodos);
-      })
-      .catch((error) => {
-        console.error(error);
+        taskListId: 1
+      }
+      saveTaskItem(taskItem, (newId) => {
+        taskItem.id = "" + newId;
+        const orderTodos = [taskItem, ...todos];
+        orderStarAndComplete(orderTodos);
+        setTodos(orderTodos);
       });
     }
   };
@@ -67,30 +69,43 @@ export const MainProvider = ({ children }: Props) => {
     text: string
   ) => {
     if (!(text === null) && text.trim()) {
-      setTodos(
-        todos.map((todo) => {
-          if (todo.id === id) todo.title = text;
-          return todo;
-        })
-      );
+      const taskItem = todos.find(todo=> todo.id === id);
+      if (taskItem) {
+        saveTaskItem(taskItem, (newID) => setTodos(
+            todos.map((todo) => {
+              if (todo.id === id) {
+                todo = taskItem
+              }
+              return todo;
+            }))
+        );
+      }
     }
   };
   const markComplete = (id: string) => {
-    const orderTodos = todos.map((todo) => {
-      if (todo.id === id) todo.completed = !todo.completed;
-      return todo;
-    });
-    orderStarAndComplete(orderTodos);
-    setTodos(orderTodos);
+    const taskItem = todos.find(todo => todo.id === id);
+    if (taskItem) {
+      taskItem.completed = !taskItem.completed;
+      saveTaskItem(taskItem, (newID) => {
+            const orderTodos = todos.map(todo => todo.id === id ? taskItem : todo);
+            orderStarAndComplete(orderTodos);
+            setTodos(orderTodos);
+          }
+      );
+    }
   };
 
   const markStar = (id: string) => {
-    const orderTodos = todos.map((todo) => {
-      if (todo.id === id) todo.starred = !todo.starred;
-      return todo;
-    });
-    orderStarAndComplete(orderTodos);
-    setTodos(orderTodos);
+    const taskItem = todos.find(todo=> todo.id === id);
+    if (taskItem) {
+      taskItem.starred = !taskItem.starred;
+      saveTaskItem(taskItem, (newID) => {
+          const orderTodos = todos.map(todo => todo.id === id ? taskItem : todo);
+          orderStarAndComplete(orderTodos);
+          setTodos(orderTodos);
+          }
+      );
+    }
   };
 
   const orderStarAndComplete = (todos: TaskItemType[]) => {
