@@ -30,7 +30,7 @@ export const MainProvider = ({ children }: Props) => {
 
   const saveTaskItem = (taskItem: TaskItemType, onSuccess: ((value: String) => any)) => {
     // Send data to the backend via POST
-    fetch('http://localhost:8080/task/item/save', {  // Enter your IP address here
+    fetch('/api/task/item/save', {
 
       method: 'POST',
       headers: {
