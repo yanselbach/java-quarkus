@@ -52,10 +52,10 @@ export const MainProvider = ({ children }: Props) => {
       })
       .then((response) => response.json())
       .then((newId) => {
-          const savedItem = [Object.assign({id: "" + newId}, taskItem)];
+          const savedItem = Object.assign({id: "" + newId}, taskItem);
           const orderTodos = [savedItem, ...todos];
-          orderStarAndComplete(savedItem);
-          setTodos(savedItem);
+          orderStarAndComplete(orderTodos);
+          setTodos(orderTodos);
       })
       .catch((error) => {
         console.error(error);
