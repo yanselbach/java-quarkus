@@ -4,33 +4,42 @@ import {createContext, ReactNode, useEffect, useState} from "react";
 interface MainContextInterface {
   todos: TaskItemType[];
   setTodos: React.Dispatch<React.SetStateAction<TaskItemType[]>>;
-  markComplete: (id: string) => void;
-  delTodo: (id: string) => void;
+  markComplete: (id: number) => void;
+  delTodo: (id: number) => void;
   deleteAll: () => void;
-  editTodo: (id: string, text: string) => void;
+  editTodo: (id: number, text: string) => void;
   addTodo: (title: string) => void;
   moveTodo: (old: number, new_: number) => void;
-  markStar: (id: string) => void;
+  markStar: (id: number) => void;
 }
 
 interface Props {
   children: ReactNode;
 }
 
+const listId = 1;
+
 export const MainContext = createContext<MainContextInterface | null>(null);
 
-export const MainProvider = ({ children }: Props) => {
-  const [todos, setTodos] = useState<TaskItemType[]>(
-    JSON.parse(localStorage.getItem("todos")!) || []
-  );
+export const MainProvider = ({children}: Props) => {
+  const [todos, setTodos] = useState<TaskItemType[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    fetch(`/api/task/list-with-items/${encodeURIComponent(listId)}`, {
 
-  const saveTaskItem = (taskItem: TaskItemType, onSuccess: ((value: String) => any)) => {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => response.json())
+      .then(json => setTodos(json.items))
+      .catch(error => console.error(error));
+  }, []);
+
+  const saveTaskItem = (taskItem: TaskItemType, onSuccess: ((value: number) => any)) => {
     // Send data to the backend via POST
-    fetch('/api/task/item/save', {
+    fetch('/api/task/item', {
 
       method: 'POST',
       headers: {
@@ -40,70 +49,69 @@ export const MainProvider = ({ children }: Props) => {
       body: JSON.stringify(taskItem) // body data type must match "Content-Type" header
 
     })
-        .then((response) => response.json())
-        .then(onSuccess)
-        .catch((error) => {
-          console.error(error);
-        });
+      .then((response) => response.json())
+      .then(onSuccess)
+      .catch(error => console.error(error));
   }
 
   const addTodo = (title: string) => {
     if (title.trim()) {
       const taskItem: TaskItemType = {
-        id: "",
+        id: Number.NaN,
         title,
         completed: false,
         starred: false,
-        taskListId: 1
+        taskListId: listId
       }
       saveTaskItem(taskItem, (newId) => {
-        taskItem.id = "" + newId;
+        taskItem.id = newId;
         const orderTodos = [taskItem, ...todos];
         orderStarAndComplete(orderTodos);
         setTodos(orderTodos);
       });
     }
   };
-  const editTodo: (id: string, text: string) => void = (
-    id: string,
+  const editTodo: (id: number, text: string) => void = (
+    id: number,
     text: string
   ) => {
     if (!(text === null) && text.trim()) {
-      const taskItem = todos.find(todo=> todo.id === id);
+      const taskItem = todos.find(todo => todo.id === id);
       if (taskItem) {
-        saveTaskItem(taskItem, (newID) => setTodos(
-            todos.map((todo) => {
-              if (todo.id === id) {
-                todo = taskItem
-              }
-              return todo;
-            }))
+        taskItem.title = text;
+        saveTaskItem(taskItem, () => setTodos(
+          todos.map((todo) => {
+            if (todo.id === id) {
+              todo = taskItem
+            }
+            return todo;
+          }))
         );
       }
     }
   };
-  const markComplete = (id: string) => {
+  const markComplete = (id: number) => {
     const taskItem = todos.find(todo => todo.id === id);
     if (taskItem) {
       taskItem.completed = !taskItem.completed;
-      saveTaskItem(taskItem, (newID) => {
-            const orderTodos = todos.map(todo => todo.id === id ? taskItem : todo);
-            orderStarAndComplete(orderTodos);
-            setTodos(orderTodos);
-          }
+      saveTaskItem(taskItem, () => {
+          const orderTodos = todos.map(todo => todo.id === id ? taskItem : todo);
+          orderStarAndComplete(orderTodos);
+          setTodos(orderTodos);
+        }
       );
     }
   };
 
-  const markStar = (id: string) => {
-    const taskItem = todos.find(todo=> todo.id === id);
+  const markStar = (id: number) => {
+    const taskItem = todos.find(todo => todo.id === id);
     if (taskItem) {
       taskItem.starred = !taskItem.starred;
-      saveTaskItem(taskItem, (newID) => {
+      saveTaskItem(taskItem, () => {
           const orderTodos = todos.map(todo => todo.id === id ? taskItem : todo);
           orderStarAndComplete(orderTodos);
           setTodos(orderTodos);
-          }
+        }
       );
     }
   };
@@ -113,8 +121,14 @@ export const MainProvider = ({ children }: Props) => {
     todos.sort((x, y) => x.completed - y.completed);
   };
 
-  const delTodo = (id: string) =>
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const delTodo = (id: number) => {
+    fetch(`/api/task/item/${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+    })
+      .then(() => setTodos(todos.filter(todo => todo.id !== id)))
+      .catch(error => console.error(error));
+  }
+
   const deleteAll = () => setTodos([]);
   const moveTodo = (old: number, new_: number) => {
     const copy = JSON.parse(JSON.stringify(todos));

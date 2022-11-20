@@ -32,11 +32,11 @@ public class UcSaveTaskItem {
   // @RolesAllowed(ApplicationAccessControlConfig.PERMISSION_SAVE_TASK_ITEM)
   public Long save(TaskItemEto item) {
 
-    final TaskItemEntity entity = this.taskItemMapper.toEntity(item);
+    final TaskItemEntity taskItemEntity = this.taskItemMapper.toEntity(item);
     if (item.getTaskListId() != null) {
-      taskListRepository.findById(item.getTaskListId()).ifPresent(entity::setTaskList);
+      taskListRepository.findById(item.getTaskListId()).ifPresent(taskItemEntity::setTaskList);
     }
-    TaskItemEntity savedEntity = this.taskItemRepository.save(entity);
+    TaskItemEntity savedEntity = this.taskItemRepository.save(taskItemEntity);
     return savedEntity.getId();
   }
 

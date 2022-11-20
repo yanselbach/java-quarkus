@@ -1,22 +1,14 @@
-import { TaskItemType } from "../../types";
-import React, { useState, useContext, forwardRef } from "react";
-import { DeleteConfirm } from "../Actions/DeleteConfirm";
+import {TaskItemType} from "../../types";
+import React, {forwardRef, useContext, useState} from "react";
+import {DeleteConfirm} from "../Actions/DeleteConfirm";
 import EditConfirm from "../Actions/EditConfirm";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Container,
-  useMediaQuery,
-  Checkbox,
-  Grid,
-} from "@material-ui/core";
-import { Draggable } from "react-beautiful-dnd";
-import { DeleteConfirmContext } from "../../context/DeleteConfirmContext";
+import {Card, CardContent, Checkbox, Container, Grid, Typography, useMediaQuery,} from "@material-ui/core";
+import {Draggable} from "react-beautiful-dnd";
+import {DeleteConfirmContext} from "../../context/DeleteConfirmContext";
 import ActionsMenu from "../Actions/ActionsMenu";
-import { SmallTextContext } from "../../context/SmallTextContext";
-import { ThemeContext } from "../../context/ThemeContext";
-import { MainContext } from "../../context/MainContext";
+import {SmallTextContext} from "../../context/SmallTextContext";
+import {ThemeContext} from "../../context/ThemeContext";
+import {MainContext} from "../../context/MainContext";
 
 interface Props {
   todo: TaskItemType;
@@ -72,7 +64,7 @@ const Todo = forwardRef(
     };
     return (
       <Container ref={ref}>
-        <Draggable draggableId={todo.id} index={index}>
+        <Draggable draggableId={"" + todo.id} index={index}>
           {(p) => (
             <Card
               className="todo-card"
@@ -93,7 +85,7 @@ const Todo = forwardRef(
                   style={checkedStyle}
                   className="todo-text"
                 >
-                  <Grid container alignItems="center" justify="flex-start">
+                  <Grid container alignItems="center" justifyContent="flex-start">
                     <Grid item>
                       <Checkbox
                         checked={todo.completed}
