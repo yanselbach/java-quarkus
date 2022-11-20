@@ -1,5 +1,25 @@
 package org.example.app.task.service;
 
+import java.net.URI;
+
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.example.app.task.common.TaskItemEto;
 import org.example.app.task.common.TaskListCto;
 import org.example.app.task.common.TaskListEto;
@@ -9,14 +29,6 @@ import org.example.app.task.logic.UcFindTaskItem;
 import org.example.app.task.logic.UcFindTaskList;
 import org.example.app.task.logic.UcSaveTaskItem;
 import org.example.app.task.logic.UcSaveTaskList;
-
-import javax.inject.Inject;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 
 /**
  * Rest service for {@link org.example.app.task.common.TaskList}.
@@ -43,13 +55,23 @@ public class TaskService {
   UcDeleteTaskItem ucDeleteTaskItem;
 
   /**
-   * @param task the {@link TaskListEto} to save (insert or update).
+   * @param taskList the {@link TaskListEto} to save (insert or update).
+   * @return response
    */
   @POST
   @Path("/list")
-  public void saveTaskList(TaskListEto task) {
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Operation(summary = "Create or update task list", description = "Update a task list or creates a new one if the id is empty.")
+  @APIResponse(responseCode = "200", description = "Task list successfully updated")
+  @APIResponse(responseCode = "201", description = "Task list successfully created")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public Response saveTask(TaskListEto taskList) {
 
-    this.ucSaveTaskList.save(task);
+    Long taskListId = this.ucSaveTaskList.save(taskList);
+    if (taskList.getId() == null || taskList.getId() != taskListId) {
+      return Response.created(URI.create("/task/list/" + taskListId)).build();
+    }
+    return Response.ok().build();
   }
 
   /**
@@ -58,7 +80,13 @@ public class TaskService {
    */
   @GET
   @Path("/list/{id}")
-  public TaskListEto findTaskList(@PathParam("id") Long id) {
+  @Produces(MediaType.APPLICATION_JSON)
+  @Operation(summary = "Fetch task list", description = "Fetch a task list")
+  @APIResponse(responseCode = "200", description = "Task list", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TaskListEto.class)))
+  @APIResponse(responseCode = "404", description = "Task list not found")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public TaskListEto findTaskList(
+      @Parameter(description = "The id of the task list to retrieve", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
 
     TaskListEto task = this.ucFindTaskList.findById(id);
     if (task == null) {
@@ -73,7 +101,13 @@ public class TaskService {
    */
   @GET
   @Path("/list-with-items/{id}")
-  public TaskListCto findTaskListWithItems(@PathParam("id") Long id) {
+  @Produces(MediaType.APPLICATION_JSON)
+  @Operation(summary = "Fetch task list with tasks", description = "Fetch a task list including all of its task items")
+  @APIResponse(responseCode = "200", description = "Task list with task items", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TaskListCto.class)))
+  @APIResponse(responseCode = "404", description = "Task list not found")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public TaskListCto findTaskListWithItems(
+      @Parameter(description = "The id of the task list to retrieve", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
 
     TaskListCto task = this.ucFindTaskList.findWithItems(id);
     if (task == null) {
@@ -87,19 +121,34 @@ public class TaskService {
    */
   @DELETE
   @Path("/list/{id}")
-  public void deleteTaskList(@PathParam("id") Long id) {
+  @Operation(summary = "Delete task list", description = "Deletes an entire task list")
+  @APIResponse(responseCode = "204", description = "Task list deleted")
+  @APIResponse(responseCode = "201", description = "Task list successfully created")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public void deleteTaskList(
+      @Parameter(description = "The id of the task list to delete", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
 
     this.ucDeleteTaskList.delete(id);
   }
 
   /**
    * @param item the {@link TaskItemEto} to save (insert or update).
+   * @return response
    */
   @POST
   @Path("/item")
-  public Long saveTaskItem(TaskItemEto item) {
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Operation(summary = "Add or update task item", description = "Update a task item or add it as a new item if the id is empty")
+  @APIResponse(responseCode = "200", description = "Task successfully updated")
+  @APIResponse(responseCode = "201", description = "Task successfully created")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public Response saveTaskItem(TaskItemEto item) {
 
-    return this.ucSaveTaskItem.save(item);
+    Long taskItemId = this.ucSaveTaskItem.save(item);
+    if (item.getId() == null || item.getId() != taskItemId) {
+      return Response.created(URI.create("/task/item/" + taskItemId)).entity(taskItemId).build();
+    }
+    return Response.ok(taskItemId).build();
   }
 
   /**
@@ -108,7 +157,13 @@ public class TaskService {
    */
   @GET
   @Path("/item/{id}")
-  public TaskItemEto findTaskItem(@PathParam("id") Long id) {
+  @Produces(MediaType.APPLICATION_JSON)
+  @Operation(summary = "Fetch task item", description = "Fetch a task item")
+  @APIResponse(responseCode = "200", description = "Task item", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = TaskItemEto.class)))
+  @APIResponse(responseCode = "404", description = "Task item not found")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public TaskItemEto findTaskItem(
+      @Parameter(description = "The id of the task item to retrieve", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
 
     TaskItemEto item = this.ucFindTaskItem.findById(id);
     if (item == null) {
@@ -122,7 +177,11 @@ public class TaskService {
    */
   @DELETE
   @Path("/item/{id}")
-  public void deleteTaskItem(@PathParam("id") Long id) {
+  @Operation(summary = "Delete task item", description = "Delete a task item")
+  @APIResponse(responseCode = "204", description = "Task list deleted")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public void deleteTaskItem(
+      @Parameter(description = "The id of the task item to delete", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
 
     this.ucDeleteTaskItem.delete(id);
   }
