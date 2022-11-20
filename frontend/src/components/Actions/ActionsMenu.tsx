@@ -1,14 +1,8 @@
-import { TaskItemType } from "../../types";
-import { Typography, IconButton, Menu, MenuItem } from "@material-ui/core";
-import {
-  DeleteTwoTone as DeleteIcon,
-  EditTwoTone as EditIcon,
-  StarTwoTone as StarIconOutlined,
-  Star as StarIcon,
-  SvgIconComponent,
-} from "@material-ui/icons";
+import {TaskItemType} from "../../types";
+import {IconButton, Menu, MenuItem, Typography} from "@material-ui/core";
+import {DeleteTwoTone as DeleteIcon, EditTwoTone as EditIcon, Star as StarIcon, StarTwoTone as StarIconOutlined, SvgIconComponent,} from "@material-ui/icons";
 import useChangeMenuIcon from "../../hooks/useChangeMenuIcon";
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 const ITEM_HEIGHT = 48;
 
@@ -39,7 +33,7 @@ interface Option {
 interface Props {
   deleteTodo: (e: any) => void;
   setEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  markStar: (id: string) => void;
+  markStar: (id: number) => void;
   todo: TaskItemType;
 }
 

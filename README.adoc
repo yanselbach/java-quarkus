@@ -1,12 +1,12 @@
 = devonfw Java Quarkus Training
 
-Training for the Java Stack (https://github.com/devonfw/devon4j[devon4j]) of https://devonfw.com[devonfw] using https://quarkus.io[Quarkus].
+Training for the https://github.com/devonfw/java[Java Stack] (https://github.com/devonfw/devon4j[devon4j]) of https://devonfw.com[devonfw] using https://quarkus.io[Quarkus].
 
 Agenda for exercises:
 
-* link:documentation/0-setup.asciidoc[0-setup]
-* link:documentation/1-dependency-injection.asciidoc[1-dependency-injection]
-* link:documentation/2-domain.asciidoc[2-dataacess]
+* link:documentation/1-setup.asciidoc[1-setup]
+* link:documentation/2-dataaccess.asciidoc[2-dataaccess]
 * link:documentation/3-logic.asciidoc[3-logic]
 * link:documentation/4-service.asciidoc[4-service]
-* link:documentation/5-access-control.asciidoc[5-access-control]
+* SKIPPED link:documentation/5-access-control.asciidoc[5-access-control]
+* link:documentatiin/6-docker-compose.asciidoc[6-docker-compose] 

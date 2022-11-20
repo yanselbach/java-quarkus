@@ -4,21 +4,19 @@ toc::[]
 = Order Service - Logic Layer
 
 In this chapter we are going to create business logic layer for already implemented database entities, repositories, and queries.
-We are going to prepare transfer-objects and use-cases together with facades and proper component tests.
+We are going to prepare transfer-objects together with use-cases and proper component tests.
 
 == Transfer objects
 
-In the link:2-dataaccess.asciidoxc[dataaccess exercise] you have created the _Entity infrastructure_.
-Now, we create transfer-objects.
+In the link:2-dataaccess.asciidoxc[dataaccess exercise] you have created the dataaccess layer.
+Now, for the logic layer we create the entity interfaces and transfer-objects in the package `org.example.app.task.common`.
 
-*ATTENTION:* We create ETOs in the `api` module (not in `core`)
+For each entity we extract interface and create `ETO`:
 
-For each entity we create an `ETO`:
+* for `TaskListEntity` extract interface `TaskList` and create class `TaskListEto`. 
+* for `TaskItemEntity` extract interface `TaskItem` and create class `TaskItemEto`.
 
-* `OrderEto` for `OrderEntity`
-* `ItemEto` for `ItemEntity`
-
-Add all properties from `Entity` to `Eto` except for relations.
+Ensure you have all properties (getters and setters) from `Entity` in the entity interface except for relations.
 
 image::images/TOs.png[width="100%"]
 
@@ -26,12 +24,12 @@ image::images/TOs.png[width="100%"]
 
 Now that we have created ETOs we create use-cases for CRUD functionality on our business-objects:
 
-* `UcFindItem[Impl]`
-* `UcFindOrder[Impl]`
-* `UcManageItem[Impl]`
-* `UcManageOrder[Impl]`
-
-image::images/UCs.png[width="100%"]
+* `UcFindTaskList`
+* `UcFindTaskItem`
+* `UcSaveTaskList`
+* `UcSaveTaskItem`
+* `UcDeleteTaskList`
+* `UcDeleteTaskItem`
 
 Each of use-case implementation shall be annotated as following:
 [source,java]
@@ -39,25 +37,6 @@ Each of use-case implementation shall be annotated as following:
 @Named
 @Transactional
 ----
-
-== Component-Facade
-
-If other components or the service-layer want to use these use-cases, we can compose them as component-facade: `Ordermanagement[Impl]`
-
-* The interface simply extends all use-case interfaces
-* The implementation gets all use-cases injected and delegates to them in the method implementations.
-
-Example:
-[source,java]
-----
-  @Override
-  public OrderEto findOrder(IdRef<Order> id) {
-
-    return this.ucFindOrder.findOrder(id);
-  }
-----
-
-image::images/Facade.png[width="100%"]
 
 == Links
 

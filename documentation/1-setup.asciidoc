@@ -13,12 +13,14 @@ Install https://github.com/devonfw/ide[devonfw-ide]:
 * Enter this settings-URL: https://github.com/devonfw-training/java-quarkus-settings.git
 * Read and confirm the terms-of-use.
 * wait until the setup process has completed.
+* Select `workspaces` folder of your installation in windows explorer and chose `Git Bash here` from the context menu.
+* In `git-bash` run this command: `devon docker setup` (you need to have a working docker environment available)
 
 == Build Project
 
-Now we build our `app` project:
+Now we build our application `backend`:
 
-* Go to folder `workspaces/main/java-quarkus/app` in `devonfw-training`.
+* Go to folder `workspaces/main/java-quarkus/` in `devonfw-training`.
 * In Windows-Explorer right-click it and select `Git Bash Here`.
 * In the git-bash at this folder run the following command:
 +
@@ -28,10 +30,10 @@ mvn clean install -DskipTests
 
 == Import into Eclipse
 
-Next, we import the new `app` project into our Eclipse IDE:
+Next, we import the new `backend` project into our Eclipse IDE:
 
 * `devon eclipse`
-* In Eclipse `Import` as `Existing Maven Project`, there click `Browse` and choose your `app` folder in `workspaces/main/java-quarkus`.
+* In Eclipse `Import` as `Existing Maven Project`, there click `Browse` and choose your `app` folder in `workspaces/main/java-quarkus/backend`.
 * Now find the green bug icon in the Eclipse toolbar and click on the down-arrow right to it.
 * Click `Debug Configuration` from the menu
 * In the appearing `Debug Configuration` popup window select `Quarkus application` from the list on the left.

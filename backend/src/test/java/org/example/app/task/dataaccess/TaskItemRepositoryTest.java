@@ -25,6 +25,19 @@ public class TaskItemRepositoryTest extends Assertions {
   private TaskItemRepository taskItemRepository;
 
   @Test
+  public void testFindById() {
+
+    // given
+    Long itemId = 11L;
+
+    // when
+    TaskItemEntity item = this.taskItemRepository.findById(itemId).get();
+
+    // then
+    assertThat(item.getTitle()).isEqualTo("Milk");
+  }
+
+  @Test
   public void testFindByFlags() {
 
     // given

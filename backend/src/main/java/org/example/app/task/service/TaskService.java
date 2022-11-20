@@ -46,7 +46,7 @@ public class TaskService {
    * @param task the {@link TaskListEto} to save (insert or update).
    */
   @POST
-  @Path("/list/save")
+  @Path("/list")
   public void saveTaskList(TaskListEto task) {
 
     this.ucSaveTaskList.save(task);
@@ -96,7 +96,7 @@ public class TaskService {
    * @param item the {@link TaskItemEto} to save (insert or update).
    */
   @POST
-  @Path("/item/save")
+  @Path("/item")
   public Long saveTaskItem(TaskItemEto item) {
 
     return this.ucSaveTaskItem.save(item);
