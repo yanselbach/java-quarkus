@@ -1,6 +1,6 @@
 = devonfw Java Quarkus Training
 
-Training for the Java Stack (https://github.com/devonfw/devon4j[devon4j]) of https://devonfw.com[devonfw] using https://quarkus.io[Quarkus].
+Training for the https://github.com/devonfw/java[Java Stack] (https://github.com/devonfw/devon4j[devon4j]) of https://devonfw.com[devonfw] using https://quarkus.io[Quarkus].
 
 Agenda for exercises:
 
