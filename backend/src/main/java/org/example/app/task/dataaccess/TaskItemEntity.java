@@ -68,6 +68,7 @@ public class TaskItemEntity extends ApplicationPersistenceEntity implements Task
     } else {
       TaskListEntity taskListEntity = new TaskListEntity();
       taskListEntity.setId(taskListId);
+      taskListEntity.setVersion(Integer.valueOf(0));
       this.taskList = taskListEntity;
     }
   }
