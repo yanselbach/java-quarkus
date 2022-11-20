@@ -14,9 +14,18 @@ Inside this package create the following data-model:
 
 image::images/Entities.png[width="100%"]
 
+Extend your entity classes from `ApplicationPersistenceEntity` to inherit `id` and `version`.
+
 == Create Repositories
 
-For each entity create a corresponding repository in the same package.
+For each entity create a corresponding repository interface in the same package extending `JpaRepository`.
+Fill in the entity as first generic argument and use `Long` as second argument for the type of the primary key as in the following example:
+
+[source,java]
+----
+public interface TaskListRepository extends JpaRepository<TaskListEntity, Long> {
+}
+----
 
 == Database Schema
 
