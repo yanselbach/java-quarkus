@@ -1,7 +1,7 @@
 package org.example.app.task.service;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
+import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,15 +19,15 @@ public class TaskServiceTest extends Assertions {
   public void testFindTaskList() {
 
     given().when().get("/task/list/1").then().statusCode(200)
-        .body(is("{\"id\":1,\"version\":0,\"title\":\"Shopping List\"}"));
+        .body(jsonEquals("{\"id\":1,\"version\":0,\"title\":\"Shopping List\"}"));
   }
 
   /** Test of {@link TaskService#findTaskList(Long)}. */
   @Test
   public void testFindTaskItem() {
 
-    given().when().get("/task/item/11").then().statusCode(200).body(is(
-        "{\"id\":11,\"version\":0,\"title\":\"Milk\",\"completed\":false,\"starred\":true,\"taskListId\":1,\"deadline\":null}"));
+    given().when().get("/task/item/11").then().statusCode(200).body(jsonEquals(
+        "{\"id\":11,\"version\":0,\"title\":\"Milk\",\"completed\":false,\"starred\":true,\"taskListId\":1}"));
   }
 
 }
