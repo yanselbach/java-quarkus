@@ -9,4 +9,4 @@ Agenda for exercises:
 * link:documentation/3-logic.asciidoc[3-logic]
 * link:documentation/4-service.asciidoc[4-service]
 * SKIPPED link:documentation/5-access-control.asciidoc[5-access-control]
-* link:documentatiin/6-docker-compose.asciidoc[6-docker-compose] 
+* link:documentation/6-docker-compose.asciidoc[6-docker-compose]
