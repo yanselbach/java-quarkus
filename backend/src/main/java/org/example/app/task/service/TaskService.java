@@ -37,22 +37,22 @@ import org.example.app.task.logic.UcSaveTaskList;
 public class TaskService {
 
   @Inject
-  UcFindTaskList ucFindTaskList;
+  private UcFindTaskList ucFindTaskList;
 
   @Inject
-  UcSaveTaskList ucSaveTaskList;
+  private UcSaveTaskList ucSaveTaskList;
 
   @Inject
-  UcDeleteTaskList ucDeleteTaskList;
+  private UcDeleteTaskList ucDeleteTaskList;
 
   @Inject
-  UcFindTaskItem ucFindTaskItem;
+  private UcFindTaskItem ucFindTaskItem;
 
   @Inject
-  UcSaveTaskItem ucSaveTaskItem;
+  private UcSaveTaskItem ucSaveTaskItem;
 
   @Inject
-  UcDeleteTaskItem ucDeleteTaskItem;
+  private UcDeleteTaskItem ucDeleteTaskItem;
 
   /**
    * @param taskList the {@link TaskListEto} to save (insert or update).

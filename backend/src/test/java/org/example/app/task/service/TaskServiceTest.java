@@ -26,8 +26,8 @@ public class TaskServiceTest extends Assertions {
   @Test
   public void testFindTaskItem() {
 
-    given().when().get("/task/item/11").then().statusCode(200).body(jsonEquals(
-        "{\"id\":11,\"version\":0,\"title\":\"Milk\",\"completed\":false,\"starred\":true,\"taskListId\":1}"));
+    given().when().get("/task/item/12").then().statusCode(200).body(jsonEquals(
+        "{\"id\":12,\"version\":0,\"title\":\"Butter\",\"completed\":false,\"starred\":true,\"taskListId\":1,\"deadline\":null}"));
   }
 
 }
