@@ -24,6 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.example.app.task.common.TaskItemEto;
 import org.example.app.task.common.TaskListCto;
 import org.example.app.task.common.TaskListEto;
+import org.example.app.task.logic.UcAddRandomActivityTaskItem;
 import org.example.app.task.logic.UcDeleteTaskItem;
 import org.example.app.task.logic.UcDeleteTaskList;
 import org.example.app.task.logic.UcFindTaskItem;
@@ -54,6 +55,9 @@ public class TaskService {
 
   @Inject
   private UcDeleteTaskItem ucDeleteTaskItem;
+
+  @Inject
+  private UcAddRandomActivityTaskItem ucAddRandomActivityTask;
 
   /**
    * @param taskList the {@link TaskListEto} to save (insert or update).
@@ -131,6 +135,23 @@ public class TaskService {
       @Parameter(description = "The id of the task list to delete", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
 
     this.ucDeleteTaskList.delete(id);
+  }
+
+  /**
+   * @param id the {@link TaskListEto#getId() primary key} of the {@link TaskListEto} for which to add a random activity
+   *        as a task.
+   * @return response
+   */
+  @POST
+  @Path("/list/{id}/random-activity")
+  @Operation(summary = "Add random activity", description = "Add a random activity to this task list")
+  @APIResponse(responseCode = "201", description = "Task item successfully added")
+  @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+  public Response addRandomActivity(
+      @Parameter(description = "The id of the task list for which to add the task", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
+
+    Long taskItemId = this.ucAddRandomActivityTask.addRandom(id);
+    return Response.created(URI.create("/task/item/" + taskItemId)).build();
   }
 
   /**
