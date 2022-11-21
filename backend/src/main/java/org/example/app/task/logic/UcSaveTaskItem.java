@@ -1,5 +1,6 @@
 package org.example.app.task.logic;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -12,6 +13,7 @@ import org.example.app.task.dataaccess.TaskListRepository;
 /**
  * Use-Case to save {@link org.example.app.task.common.TaskItem}s.
  */
+@ApplicationScoped
 @Named
 @Transactional
 public class UcSaveTaskItem {

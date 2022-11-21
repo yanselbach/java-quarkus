@@ -2,6 +2,7 @@ package org.example.app.task.logic;
 
 import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import org.example.app.task.dataaccess.TaskItemRepository;
 /**
  * Use-Case to find {@link TaskItemEntity task-items}.
  */
+@ApplicationScoped
 @Named
 @Transactional
 public class UcFindTaskItem {

@@ -2,6 +2,10 @@ package org.example.app.task.common;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.example.app.general.common.AbstractEto;
 
@@ -11,6 +15,7 @@ import org.example.app.general.common.AbstractEto;
 @Schema(name = "TaskItem", description = "Object that represents a task item")
 public class TaskItemEto extends AbstractEto implements TaskItem {
 
+  @NotBlank(message = "A task item must always have a title")
   @Schema(required = true, example = "Buy eggs", description = "The task title or description")
   private String title;
 
@@ -20,6 +25,8 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
   @Schema(required = false, example = "false", description = "Whether or not the task has been starred")
   private boolean starred;
 
+  @Min(value = 1, message = "A task item must always be associated with a task list")
+  @NotNull(message = "A task item must always be associated with a task list")
   @Schema(required = true, example = "1", description = "The id of the task list to which this item belongs")
   private Long taskListId;
 

@@ -3,6 +3,7 @@ package org.example.app.task.service;
 import java.net.URI;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -64,8 +65,9 @@ public class TaskService {
   @Operation(summary = "Create or update task list", description = "Update a task list or creates a new one if the id is empty.")
   @APIResponse(responseCode = "200", description = "Task list successfully updated")
   @APIResponse(responseCode = "201", description = "Task list successfully created")
+  @APIResponse(responseCode = "400", description = "Validation error")
   @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
-  public Response saveTask(TaskListEto taskList) {
+  public Response saveTask(@Valid TaskListEto taskList) {
 
     Long taskListId = this.ucSaveTaskList.save(taskList);
     if (taskList.getId() == null || taskList.getId() != taskListId) {
@@ -141,8 +143,9 @@ public class TaskService {
   @Operation(summary = "Add or update task item", description = "Update a task item or add it as a new item if the id is empty")
   @APIResponse(responseCode = "200", description = "Task successfully updated")
   @APIResponse(responseCode = "201", description = "Task successfully created")
+  @APIResponse(responseCode = "400", description = "Validation error")
   @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
-  public Response saveTaskItem(TaskItemEto item) {
+  public Response saveTaskItem(@Valid TaskItemEto item) {
 
     Long taskItemId = this.ucSaveTaskItem.save(item);
     if (item.getId() == null || item.getId() != taskItemId) {
