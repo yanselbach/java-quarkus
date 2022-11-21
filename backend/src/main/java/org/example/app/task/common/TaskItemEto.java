@@ -19,6 +19,7 @@ public class TaskItemEto extends AbstractEto implements TaskItem {
   @Schema(required = true, example = "Buy eggs", description = "The task title or description")
   private String title;
 
+  @Schema(required = false, example = "false", description = "Whether or not the task is completed")
   private boolean completed;
 
   @Schema(required = false, example = "false", description = "Whether or not the task has been starred")
