@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import org.example.app.task.common.TaskListCto;
@@ -15,6 +16,7 @@ import org.example.app.task.dataaccess.TaskListRepository;
  * Use-Case to find {@link TaskListEntity task-lists}.
  */
 @ApplicationScoped
+@Named
 @Transactional
 public class UcFindTaskList {
 
