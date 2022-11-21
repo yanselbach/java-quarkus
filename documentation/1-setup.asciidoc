@@ -16,7 +16,7 @@ Install https://github.com/devonfw/ide[devonfw-ide]:
 * Select `workspaces` folder of your installation in windows explorer and chose `Git Bash here` from the context menu.
 * In `git-bash` run this command: `devon docker setup` (you need to have a working docker environment available)
 
-== Build Project
+== Build Backend
 
 Now we build our application `backend`:
 
@@ -28,7 +28,7 @@ Now we build our application `backend`:
 mvn clean install -DskipTests
 ```
 
-== Import into Eclipse
+=== Import into Eclipse
 
 Next, we import the new `backend` project into our Eclipse IDE:
 
@@ -41,6 +41,13 @@ Next, we import the new `backend` project into our Eclipse IDE:
 * Change the `Name` to `app` and ensure the `Project` is set to `app`.
 * Click on `Debug` to start your app in debug mode.
 * Open http://localhost:8080/ in your browser and you should see the quarkus welcome page of the app.
+
+== Build Frontend
+The frontend is written in react and can be build with yarn. Please go into `frontend` and run `yarn install` on a command line. Please do not use npm.
+
+When the build was successful and the backand is running, too, you can start the frontend by running `yarn start` in the same directory.
+
+The frontend is reachable under http://localhost:3000/. You can append the id of the list you want to load, default is 1: http://localhost:3000/1.
 
 == Links
 * https://github.com/devonfw/ide/[devonfw-ide]
