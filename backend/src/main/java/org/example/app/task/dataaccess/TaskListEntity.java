@@ -2,6 +2,7 @@ package org.example.app.task.dataaccess;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,7 @@ public class TaskListEntity extends ApplicationPersistenceEntity implements Task
   @Column
   private String title;
 
-  @OneToMany(mappedBy = "taskList", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "taskList", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<TaskItemEntity> items;
 
   @Override
