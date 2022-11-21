@@ -1,5 +1,6 @@
 import {TaskItemType} from "../types";
 import {createContext, ReactNode, useEffect, useState} from "react";
+import {useRoute} from "wouter";
 
 interface MainContextInterface {
   todos: TaskItemType[];
@@ -17,11 +18,11 @@ interface Props {
   children: ReactNode;
 }
 
-const listId = 1;
-
 export const MainContext = createContext<MainContextInterface | null>(null);
 
 export const MainProvider = ({children}: Props) => {
+  const [, params] = useRoute("/:listId");
+  const listId = +(params?.listId || 1);
   const [todos, setTodos] = useState<TaskItemType[]>([]);
 
   useEffect(() => {
