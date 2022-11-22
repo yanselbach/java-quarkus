@@ -19,11 +19,13 @@ Change the use case to call the client instead of the hardcoded response and che
 == Add Logging
 
 The communication with the external service in the REST client should be logged. For this you can add in the `application.properties`:
-```
+
+[source,properties]
+----
 %test.quarkus.rest-client.logging.scope=request-response
 %dev.quarkus.rest-client.logging.scope=request-response
 quarkus.log.category."org.jboss.resteasy.reactive.client.logging".level=DEBUG
-```
+----
 
 == Add tests
 

@@ -24,10 +24,11 @@ Now we build our application `backend`:
 * In Windows-Explorer right-click it and select `Git Bash Here`.
 * In the git-bash at this folder run the following command:
 +
-```
+[source,commandline]
+----
 mvn clean install -DskipTests
-```
-
+----
+s
 === Import into Eclipse
 
 Next, we import the new `backend` project into our Eclipse IDE:
