@@ -1,0 +1,50 @@
+:toc: macro
+toc::[]
+
+= OpenAPI
+
+In this chapter we are going to generate a OpenAPI specification for our REST API using a code-first approach.
+
+When running the application in dev mode you can reach the Swagger UI at http://localhost:8080/q/swagger-ui which allows you to browse and interact with the REST API.
+The descriptions are automatically generated based on a OpenAPI specification of the service which we have pre-defined and added to the service (design-first).
+
+== Remove existing OpenAPI specification
+
+Delete the existing openapi.yml file in your backend service at `+/src/main/resources+`. You may also want to keep a backup for later review. 
+
+Restart the application and check the Swagger UI. What do you see?
+
+== Add basic information
+
+We want to provide some basic information about our REST API such as its name. This can be done via code or configuration. In our case we want to provide it via configuration. 
+Add the following properties to your `+application.properties+`:
+
+.application.properties
+----
+# OpenAPI
+quarkus.smallrye-openapi.info-title=Task API
+%dev.quarkus.smallrye-openapi.info-title=Task API (development)
+%test.quarkus.smallrye-openapi.info-title=Task API (test)
+quarkus.smallrye-openapi.info-version=1.0.0
+quarkus.smallrye-openapi.info-description=A service to manage tasks
+quarkus.smallrye-openapi.info-contact-email=techsupport@example.com
+quarkus.smallrye-openapi.info-contact-name=Task API Support
+quarkus.smallrye-openapi.info-contact-url=http://exampleurl.com/contact
+quarkus.smallrye-openapi.operation-id-strategy=method
+
+# Generate OpenAPI spec at build-time (can be grabbed and published in schema repository by CI process)
+quarkus.smallrye-openapi.store-schema-directory=target/openapi
+----
+
+Observe the changes in Swagger UI. Look up what each parameter does in the documentation and observe what happens when you update the values.
+
+== Annotate your REST API and ETOs
+
+Now we want to add further information about the available operations, their input and output data formats and descriptions to our REST API.
+
+Refer to the Quarkus Guide and MicroProfile OpenAPI specification (see below) and start annotating the REST API service methods (JAX-RS class/interface) and your ETOs. You may want to refer to the OpenAPI specification which you removed (and hopefully backed up) to get inspiration on what you could and should describe.
+
+== Links
+
+- https://download.eclipse.org/microprofile/microprofile-open-api-3.0/microprofile-openapi-spec-3.0.html
+- https://quarkus.io/guides/openapi-swaggerui
