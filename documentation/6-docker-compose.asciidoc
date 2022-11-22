@@ -26,17 +26,19 @@ First create a separate network for the database and app by running: :
 
 * Start database container:
 +
-```
+[source,commandline]
+----
 docker pull postgres
 docker run --name myPostgresDb -p 5432:5432 --net=quarkus -e POSTGRES_USER=quarkus -e POSTGRES_PASSWORD=quarkus -e POSTGRES_DB=quarkus-db -d postgres
-```
+----
 * Build and start the application:
 +
-```
+[source,commandline]
+----
 mvn package
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/backend .
 docker run -i --rm -p 8080:8080 --net=quarkus quarkus/backend
-```
+----
 * Check created containers running `docker ps`
 
 === Run docker compose
