@@ -3,22 +3,27 @@ toc::[]
 
 = Inter-Service Communication
 
-Now that our ToDo-list is running we want to add some new todos from another service. For this we'll get random activities from the webservice https://www.boredapi.com/api/activity. Decide if you implement the logic or the tests first.
+Now that our To Do list is feature-complete we want to add some new functionality. We will add a new use case which adds a task using activity suggestions using the third-party service https://www.boredapi.com/api/activity"[The Bored API]. 
+
+Decide if you implement the logic or the tests first.
 
 == Add endpoint and use case for requesting a random activity
 
-Implement the endpoint `/task/list/{id}/random-activity` in our service as a POST request. When it is called a new task should be added to our ToDo-list, that describes an activity from  https://www.boredapi.com/api/activity.
-Also implement the corresponding use case with a hardcoded response. You can test this now with the Swagger UI. After calling the endpoint for a given taskList id you should see a new entry when reloading the ToDo-list.
+Implement the endpoint `/task/list/{id}/random-activity` in our service as a POST request. When it is called a new task should be added to our To Do list by calling a new use case. Implement the new use case with a hardcoded response.
+
+You can test this now with the Swagger UI. After calling the endpoint for a given task list id you should see a new entry when reloading the To Do list.
+
+See the code snippets below for suggestions on how to implement the new REST API and use case.
 
 == Add REST client
 
-Extend our application with a REST client called `BoredApi`. This is used be the also to implement `ActivityService`. Use Quarkus MicroProfile REST to connect to the web service https://www.boredapi.com/api/activity and get a JSON with an activity to add to our ToDo-list. We only need the name of the activity, not the whole response. Throw a helpful exception when the service is not reachable or other errors occurred.
+Extend our application with a REST client called `BoredApi` using the MicroProfile REST client functionality from Quarkus. Follow the Quarkus guide to write the REST client which wraps the web service https://www.boredapi.com/api/activity . You can open the web service in your browser or Postman to check a sample response. Take note that we only need the name of the activity, not the whole response.
 
-Change the use case to call the client instead of the hardcoded response and check it again with Swagger UI.
+Change the use case to call the client instead of the hardcoded response and check it again with Swagger UI. Do you get a new random activity each time you call the new endpoint?
 
 == Add Logging
 
-The communication with the external service in the REST client should be logged. For this you can add in the `application.properties`:
+The communication with the external service in the REST client can be logged automatically for easier insight during development. Just add the following lines to your `+application.properties+`:
 
 [source,properties]
 ----
@@ -31,8 +36,56 @@ quarkus.log.category."org.jboss.resteasy.reactive.client.logging".level=DEBUG
 
 Implement two types of tests for the use case:
 
-1. Add a test for the use case which mocks the REST client and checks the use case logic.
-2. Add a test which tests the integration with the REST API. For this stub the Bored API with WireMock on network level. The communication should be transparently handled by WireMock and the test must not talk to the real service.
+1. Add a test for the use case which mocks the REST client and checks the use case logic. You may want to use `+InjectMock+`.
+2. Add a test which tests the integration with the REST API. For this stub the Bored API with WireMock on network level. The communication should be transparently handled by WireMock and the test must not talk to the real service. Refer to the relevant Quarkus guide linked below.
+
+== Code Snippets (hints)
+
+.TaskService.java (REST layer)
+[source,java]
+----
+// snippet
+@POST
+@Path("/list/{id}/random-activity")
+@Operation(summary = "Add random activity", description = "Add a random activity to this task list")
+@APIResponse(responseCode = "201", description = "Task item successfully added")
+ @APIResponse(responseCode = "500", description = "Server unavailable or a server-side error occurred")
+public Response addRandomActivity(
+    @Parameter(description = "The id of the task list for which to add the task", required = true, example = "1", schema = @Schema(type = SchemaType.INTEGER)) @PathParam("id") Long id) {
+
+  Long taskItemId = this.ucAddRandomActivityTask.addRandom(id);
+  return Response.created(URI.create("/task/item/" + taskItemId)).build();
+}
+----
+
+.UcAddRandomActivityTaskItem.java (Use Case)
+[source,java]
+----
+/**
+ * Use-Case to add a {@link org.example.app.task.common.TaskItem} with a random activity grabbed from
+ * <a href="https://www.boredapi.com/">The Bored API</a>.
+ *
+ * @see <a href="https://www.boredapi.com/">The Bored API</a>
+ */
+@ApplicationScoped
+@Named
+@Transactional
+public class UcAddRandomActivityTaskItem {
+
+  // add your injections/dependencies here
+
+  /**
+   * @param taskListId id the {@link org.example.app.task.dataaccess.TaskListEntity#getId() primary key} of the
+   *        {@link org.example.app.task.dataaccess.TaskListEntity} for which to add a random task.
+   * @return the {@link TaskItemEntity#getId() primary key} of the newly added {@link TaskItemEntity}.
+   */
+  public Long addRandom(Long taskListId) {
+
+    // add your implementation here
+  }
+
+}
+----
 
 == Links
 
