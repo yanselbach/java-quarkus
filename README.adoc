@@ -4,12 +4,12 @@ Training for the https://github.com/devonfw/java[Java Stack] (https://github.com
 
 Agenda for exercises:
 
-* link:documentation/1-setup.asciidoc[setup]
-* link:documentation/2-dataaccess.asciidoc[dataaccess]
-* link:documentation/3-logic.asciidoc[logic]
-* link:documentation/4-service.asciidoc[service]
-//* link:documentation/5-access-control.asciidoc[5-access-control]
-* link:documentation/6-docker-compose.asciidoc[docker-compose]
-* link:documentation/7-inter-service-communication.adoc[inter-service communication]
-* link:documentation/8-fault-tolerance.adoc[fault tolerance]
-* link:documentation/9-openapi.adoc[OpenAPI]
+* link:documentation/setup.asciidoc[setup]
+* link:documentation/dataaccess.asciidoc[dataaccess]
+* link:documentation/logic.asciidoc[logic]
+* link:documentation/service.asciidoc[service]
+//* link:documentation/access-control.asciidoc[5-access-control]
+* link:documentation/docker-compose.asciidoc[docker-compose]
+* link:documentation/inter-service-communication.adoc[inter-service communication]
+* link:documentation/fault-tolerance.adoc[fault tolerance]
+* link:documentation/openapi.adoc[OpenAPI]

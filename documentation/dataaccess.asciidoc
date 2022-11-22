@@ -8,7 +8,7 @@ We create the entities and repositories as well as the corresponding database sc
 
 == Create Entities
 
-After you have link:1-setup.asciidoc[setup the project], we are going to create our first app component.
+After you have link:setup.asciidoc[setup the project], we are going to create our first app component.
 In your application backend create the package `org.example.app.task.dataaccess` (in `src/main/java`).
 Inside this package create the following data-model:
 
