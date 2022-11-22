@@ -8,7 +8,7 @@ We are going to prepare transfer-objects together with use-cases and proper comp
 
 == Transfer objects
 
-In the link:2-dataaccess.asciidoxc[dataaccess exercise] you have created the dataaccess layer.
+In the link:2-dataaccess.asciidoc[dataaccess exercise] you have created the dataaccess layer.
 Now, for the logic layer we create the entity interfaces and transfer-objects in the package `org.example.app.task.common`.
 
 For each entity we extract interface and create `ETO`:
