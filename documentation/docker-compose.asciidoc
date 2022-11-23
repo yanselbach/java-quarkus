@@ -9,8 +9,6 @@ In this exercise we will launch our application in a container. For this we have
 * Run in a CLI `docker images`. What do you see?
 * Check in CLI if docker containers are running. What do you see?
 * Build our application with maven and package it
-* Create a docker file describing the image for our application
-* Add the container description to the docker-compose file
 
 == Docker Compose
 
