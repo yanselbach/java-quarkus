@@ -13,16 +13,32 @@ Now, for the logic layer we create the entity interfaces and transfer-objects in
 
 For each entity we extract interface and create `ETO`:
 
-* for `TaskListEntity` extract interface `TaskList` and create class `TaskListEto`. 
+* for `TaskListEntity` extract interface `TaskList` and create class `TaskListEto`.
 * for `TaskItemEntity` extract interface `TaskItem` and create class `TaskItemEto`.
 
 Ensure you have all properties (getters and setters) from `Entity` in the entity interface except for relations.
 
 image::images/TOs.png[width="100%"]
 
+== Mappers
+
+You also have to create a https://mapstruct.org/[Mapstruct] mapper per interface, e.g.:
+
+[source,java]
+----
+@Mapper(componentModel = "cdi")
+public interface TaskItemMapper {
+
+  // Declare your mapper methods here ...
+}
+----
+
+The mapper implementation will be generated during build and can be found in the corresponding package under
+`target/generated-sources/annotations`.
+
 == Use-Cases
 
-Now that we have created ETOs we create use-cases for CRUD functionality on our business-objects:
+Now that we have created ETOs and mappers, we create use-cases for CRUD functionality on our business-objects:
 
 * `UcFindTaskList`
 * `UcFindTaskItem`
@@ -32,6 +48,7 @@ Now that we have created ETOs we create use-cases for CRUD functionality on our 
 * `UcDeleteTaskItem`
 
 Each of use-case implementation shall be annotated as following:
+
 [source,java]
 ----
 @ApplicationScoped
