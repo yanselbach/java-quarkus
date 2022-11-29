@@ -19,13 +19,13 @@ import io.quarkus.test.junit.QuarkusTest;
  * Test of {@link TaskItemRepository}.
  */
 @QuarkusTest
-public class TaskItemRepositoryTest extends Assertions {
+class TaskItemRepositoryTest extends Assertions {
 
   @Inject
-  private TaskItemRepository taskItemRepository;
+  TaskItemRepository taskItemRepository;
 
   @Test
-  public void testFindById() {
+  void testFindById() {
 
     // given
     Long itemId = 11L;
@@ -38,7 +38,7 @@ public class TaskItemRepositoryTest extends Assertions {
   }
 
   @Test
-  public void testFindByFlags() {
+  void testFindByFlags() {
 
     // given
     boolean completed = false;
@@ -52,7 +52,7 @@ public class TaskItemRepositoryTest extends Assertions {
   }
 
   @Test
-  public void testFindByDeadline() {
+  void testFindByDeadline() {
 
     // given
     LocalDateTime deadline = LocalDateTime.of(2022, 12, 22, 23, 59);
@@ -65,7 +65,7 @@ public class TaskItemRepositoryTest extends Assertions {
   }
 
   @Test
-  public void testFindByCriteria() {
+  void testFindByCriteria() {
 
     // given
     TaskItemSearchCriteria criteria = new TaskItemSearchCriteria();
