@@ -28,7 +28,7 @@ Now we build our application `backend`:
 ----
 mvn clean install -DskipTests
 ----
-s
+
 === Import into Eclipse
 
 Next, we import the new `backend` project into our Eclipse IDE:
