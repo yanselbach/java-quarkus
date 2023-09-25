@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 /**
  * {@link Mapper} for {@link org.example.app.task.common.TaskList}.
  */
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "jakarta")
 public interface TaskListMapper {
 
   /**
