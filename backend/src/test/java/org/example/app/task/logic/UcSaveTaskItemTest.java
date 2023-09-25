@@ -1,6 +1,6 @@
 package org.example.app.task.logic;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.assertj.core.api.Assertions;
 import org.example.app.task.common.TaskItemEto;

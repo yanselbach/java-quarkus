@@ -2,9 +2,9 @@ package org.example.app.task.common;
 
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.example.app.general.common.AbstractEto;

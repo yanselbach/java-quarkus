@@ -1,6 +1,6 @@
 package org.example.app.task.common;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.example.app.general.common.AbstractEto;
