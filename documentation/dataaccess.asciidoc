@@ -1,12 +1,12 @@
 :toc: macro
 toc::[]
 
-= Dataaccess Layer
+== Dataaccess Layer
 
 In this chapter we are going to create the `dataaccess` layer of our application backend.
 We create the entities and repositories as well as the corresponding database schema and initial data.
 
-== Create Entities
+=== Create Entities
 
 After you have link:setup.asciidoc[setup the project], we are going to create our first app component.
 In your application backend create the package `org.example.app.task.dataaccess` (in `src/main/java`).
@@ -16,7 +16,7 @@ image::images/Entities.png[width="100%"]
 
 Extend your entity classes from `ApplicationPersistenceEntity` to inherit `id` and `version`.
 
-== Create Repositories
+=== Create Repositories
 
 For each entity create a corresponding repository interface in the same package extending `JpaRepository`.
 Fill in the entity as first generic argument and use `Long` as second argument for the type of the primary key as in the following example:
@@ -27,12 +27,12 @@ public interface TaskListRepository extends JpaRepository<TaskListEntity, Long> 
 }
 ----
 
-== Database Schema
+=== Database Schema
 
 We have already created SQLs for you with DDL and testdata so you do not have to worry about it.
 You can find this in `src/main/resources/db/migration`
 
-== Create JUnits
+=== Create JUnits
 Now you can create JUnit tests (based on assertJ using `Assertions` class to allow `assertThat` usage).
 
 [source,java]
@@ -59,7 +59,7 @@ public class TaskItemRepositoryTest extends Assertions {
 }
 ----
 
-== Links
+=== Links
 
 * https://github.com/devonfw/devon4j/blob/develop/documentation/guide-jpa.asciidoc#java-persistence-api[devon4j:JPA]
 * https://github.com/devonfw/devon4j/blob/develop/documentation/guide-repository.asciidoc#spring-data[devon4j:Repository]

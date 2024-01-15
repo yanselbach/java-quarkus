@@ -1,21 +1,23 @@
 :toc: macro
 toc::[]
 
-= Containerization
+== Containerization
 In this exercise we will launch our application in a container. For this we have to build the image, deploy it in Rancher Desktop and update it when we change something in our application.
 
-== Get to know Docker and Rancher Desktop
+=== Get to know Docker and Rancher Desktop
 
 * Run in a CLI `docker images`. What do you see?
 * Check in CLI if docker containers are running. What do you see?
 * Build our application with maven and package it
+* Create a docker file describing the image for our application
+* Add the container description to the docker-compose file
 
-== Docker Compose
+=== Docker Compose
 
 Now, we will containerize our application.
 We will learn how to run docker compose with postgres, our application and keycloak as well how to navigate inside of a container.
 
-=== Running with docker
+==== Running with docker
 
 Familiarize yourself with the structure of `Dockerfile.jvm` and `docker-compose.yaml`
 
@@ -35,16 +37,16 @@ docker run --name myPostgresDb -p 5432:5432 --net=quarkus -e POSTGRES_USER=quark
 ----
 mvn package
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus/backend .
-docker run -i --rm -p 8080:8080 --net=quarkus -e QUARKUS_DATASOURCE_JDBC_URL=”jdbc:postgresql://myPostgresDb:5432/quarkus-db” quarkus/backend
+docker run -i --rm -p 8080:8080 --net=quarkus quarkus/backend
 ----
 * Check created containers running `docker ps`
 
-=== Run docker compose
+==== Run docker compose
 
 To run the containers you had to execute many commands.
 It would be easier if we only had to execute one command. We can achieve this by using Docker Compose.
 
-==== Running Docker compose
+===== Running Docker compose
 Docker Compose works by applying many rules declared within a single docker-compose.yml configuration file.
 
 * Start application by running `docker-compose up`
@@ -56,7 +58,7 @@ Similarly, networks define the communication rules between containers, and betwe
 * Run this command to see that the containers arte up and running `docker-compose ps`
 
 
-==== Access the database
+===== Access the database
 Now we will access Postgres using psql.
 
 * Connect to Postgres with this command
@@ -70,19 +72,19 @@ Now you are ‘inside’ your container.
 * List all available databases inside of your container with `\l`
 * List all tables that were created with `\dt`, press "Enter" to show more tables.
 
-==== Access keycloak
+===== Access keycloak
 Keycloak is an open source identity and access management solution which mainly aims at applications and services. Users can authenticate with Keycloak rather than individual applications. So, the applications don't have to deal with login forms, authenticating users and storing users.
 
 * Access Keycloak bei call the URL `localhost:<keycloak port from docker compose>`
 * Go to "Administration Console" and enter the user login data from docker compose
 * Navigate to users > view all users. Here you can see your admin-user.
 
-==== Stop services with Docker compose
+===== Stop services with Docker compose
 
 * To safely stop the active services, we can use stop, which will preserve containers, volumes, and networks, along with every modification made to them `docker-compose stop`
 * To reset the status of our project, we can simply run down, which will destroy everything with the exception of external volumes `docker-compose down`
 
-== Links
+=== Links
 
 * https://www.docker.com/
 * https://docs.docker.com/compose/
