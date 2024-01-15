@@ -1,11 +1,11 @@
 :toc: macro
 toc::[]
 
-= Services Layer
+== Services Layer
 
 In this chapter we are going to create service layer which exposes backend functionality via REST services with JSON transport.
 
-== REST Service
+=== REST Service
 
 All we need to do is creating the class `org.example.app.task.service.TaskService`
 
@@ -36,7 +36,7 @@ Now create all endpoints required for implementing the todo list application as 
 
 You can view the documentation of our pre-defined API using Swagger UI reachable at http://localhost:8080/q/swagger-ui and use it for testing it manually.
 
-== Testing of service layer
+=== Testing of service layer
 
 To properly test our REST service, we define a tests in the class `org.example.app.task.service.TaskServiceTest`.
 

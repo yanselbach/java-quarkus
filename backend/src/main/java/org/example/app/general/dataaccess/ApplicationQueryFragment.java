@@ -1,11 +1,16 @@
 package org.example.app.general.dataaccess;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.function.Function;
-
+import com.querydsl.core.FilteredClause;
+import com.querydsl.core.support.QueryBase;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.SimpleExpression;
+import com.querydsl.core.types.dsl.StringExpression;
+import com.querydsl.jpa.impl.JPAQuery;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
 import org.example.app.general.common.search.LikePatternSyntax;
 import org.example.app.general.common.search.SearchCriteria;
 import org.example.app.general.common.search.SortOrderBy;
@@ -18,18 +23,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import com.querydsl.core.FilteredClause;
-import com.querydsl.core.support.QueryBase;
-import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.ComparableExpressionBase;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.SimpleExpression;
-import com.querydsl.core.types.dsl.StringExpression;
-import com.querydsl.jpa.impl.JPAQuery;
-
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.function.Function;
 
 /**
  * Abstract base class for query fragment of spring-data repository.
@@ -107,25 +105,19 @@ public abstract class ApplicationQueryFragment {
     }
     String v = value;
     if (v == null) {
-      switch (operator) {
-        case LIKE:
-        case EQ:
-          return expression.isNull();
-        case NE:
-          return expression.isNotNull();
-        default:
-          throw new IllegalArgumentException("Operator " + operator + " does not accept null!");
-      }
+        return switch (operator) {
+            case LIKE, EQ -> expression.isNull();
+            case NE -> expression.isNotNull();
+            default -> throw new IllegalArgumentException("Operator " + operator + " does not accept null!");
+        };
     } else if (v.isEmpty()) {
       switch (operator) {
-        case LIKE:
-        case EQ:
+        case LIKE, EQ:
           return expression.isEmpty();
-        case NOT_LIKE:
-        case NE:
+        case NOT_LIKE, NE:
           return expression.isNotEmpty();
         default:
-          // continue;
+          // continue
       }
     }
     StringExpression exp = expression;
@@ -133,26 +125,17 @@ public abstract class ApplicationQueryFragment {
       v = v.toUpperCase(Locale.US);
       exp = exp.upper();
     }
-    switch (operator) {
-      case LIKE:
-        return newLikeClause(exp, v, syntax, false, matchSubstring, false);
-      case NOT_LIKE:
-        return newLikeClause(exp, v, syntax, false, matchSubstring, true);
-      case EQ:
-        return exp.eq(v);
-      case NE:
-        return exp.ne(v);
-      case LT:
-        return exp.lt(v);
-      case LE:
-        return exp.loe(v);
-      case GT:
-        return exp.gt(v);
-      case GE:
-        return exp.goe(v);
-      default:
-        throw new IllegalStateException("" + operator);
-    }
+      return switch (operator) {
+          case LIKE -> newLikeClause(exp, v, syntax, false, matchSubstring, false);
+          case NOT_LIKE -> newLikeClause(exp, v, syntax, false, matchSubstring, true);
+          case EQ -> exp.eq(v);
+          case NE -> exp.ne(v);
+          case LT -> exp.lt(v);
+          case LE -> exp.loe(v);
+          case GT -> exp.gt(v);
+          case GE -> exp.goe(v);
+          default -> throw new IllegalStateException("" + operator);
+      };
   }
 
   /**
@@ -398,7 +381,6 @@ public abstract class ApplicationQueryFragment {
       offset = pageable.getOffset();
       query.offset(offset);
       query.limit(pageable.getPageSize());
-      // applySort(query, pageable.getSort());
     }
     List<E> hits = query.fetch();
     if (total == -1) {
@@ -406,5 +388,4 @@ public abstract class ApplicationQueryFragment {
     }
     return new PageImpl<>(hits, pageable, total);
   }
-
 }

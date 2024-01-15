@@ -1,13 +1,12 @@
 package org.example.app.general.dataaccess;
 
-import org.example.app.general.common.ApplicationEntity;
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Version;
+import org.example.app.general.common.ApplicationEntity;
 
 /**
  * Abstract base class for all persistent entities of this app.
