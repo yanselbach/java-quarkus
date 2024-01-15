@@ -1,11 +1,11 @@
 :toc: macro
 toc::[]
 
-= Services Layer
+== Services Layer
 
 In this chapter we are going to create service layer which exposes backend functionality via REST services with JSON transport.
 
-== REST Service
+=== REST Service
 
 All we need to do is creating the class `org.example.app.task.service.TaskService`
 
@@ -32,9 +32,15 @@ public class TaskService {
 }
 ----
 
-== Testing of service layer
+Now create all endpoints required for implementing the todo list application as expected by the frontend. As we're following a design-first approach you must implement the REST endpoints as defined in the OpenAPI specification, which is available in the backend at `+src/main/resources/META-INF/openapi.yaml+`.
 
-To properly test our REST service, we define a tests in the class `org.example.app.task.service.TaskServiceTest`:
+You can view the documentation of our pre-defined API using Swagger UI reachable at http://localhost:8080/q/swagger-ui and use it for testing it manually.
+
+=== Testing of service layer
+
+To properly test our REST service, we define a tests in the class `org.example.app.task.service.TaskServiceTest`.
+
+You can write tests which integrate with all below layers:
 
 [source,java]
 ----
@@ -51,5 +57,33 @@ public class TaskServiceTest extends Assertions {
 
   // ... test other service operations here ...
 
+}
+----
+
+Or write unit tests which mock the logic layer:
+
+[source,java]
+----
+import static net.javacrumbs.jsonunit.JsonMatchers.jsonEquals;
+
+@QuarkusTest
+public class TaskServiceTest {
+  
+  @InjectMock
+  UcFindTaskList findTaskList;
+
+  @Test
+  void testFindTaskListSuccessCase() {
+
+    given(TaskServiceTest.this.findTaskList.findById(anyLong())).willReturn(aTaskList());
+    // aTaskList() is a helper method which creates a pre-populated TaskListEto
+
+    given()
+        .when()
+        .get("/task/list/123")
+        .then()
+        .statusCode(200)
+        .body(jsonEquals("{\"id\":123,\"version\":1,\"title\":\"Shopping List\"}"));
+  }
 }
 ----

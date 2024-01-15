@@ -1,10 +1,11 @@
 package org.example.app.general.dataaccess;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
-
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Version;
 import org.example.app.general.common.ApplicationEntity;
 
 /**
@@ -14,7 +15,8 @@ import org.example.app.general.common.ApplicationEntity;
 public abstract class ApplicationPersistenceEntity implements ApplicationEntity {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
+  @SequenceGenerator(name = "hibernate_sequence", sequenceName = "hibernate_sequence", allocationSize = 1, initialValue = 1000000)
   private Long id;
 
   @Version

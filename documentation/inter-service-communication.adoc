@@ -1,13 +1,13 @@
 :toc: macro
 toc::[]
 
-= Inter-Service Communication
+== Inter-Service Communication
 
 Now that our To Do list is feature-complete we want to add some new functionality. We will add a new use case which adds a task using activity suggestions using the third-party service https://www.boredapi.com/api/activity"[The Bored API]. 
 
 Decide if you implement the logic or the tests first.
 
-== Add endpoint and use case for requesting a random activity
+=== Add endpoint and use case for requesting a random activity
 
 Implement the endpoint `/task/list/{id}/random-activity` in our service as a POST request. When it is called a new task should be added to our To Do list by calling a new use case. Implement the new use case with a hardcoded response.
 
@@ -15,13 +15,13 @@ You can test this now with the Swagger UI. After calling the endpoint for a give
 
 See the code snippets below for suggestions on how to implement the new REST API and use case.
 
-== Add REST client
+=== Add REST client
 
 Extend our application with a REST client called `BoredApi` using the MicroProfile REST client functionality from Quarkus. Follow the Quarkus guide to write the REST client which wraps the web service https://www.boredapi.com/api/activity . You can open the web service in your browser or Postman to check a sample response. Take note that we only need the name of the activity, not the whole response.
 
 Change the use case to call the client instead of the hardcoded response and check it again with Swagger UI. Do you get a new random activity each time you call the new endpoint?
 
-== Add Logging
+=== Add Logging
 
 The communication with the external service in the REST client can be logged automatically for easier insight during development. Just add the following lines to your `+application.properties+`:
 
@@ -32,14 +32,14 @@ The communication with the external service in the REST client can be logged aut
 quarkus.log.category."org.jboss.resteasy.reactive.client.logging".level=DEBUG
 ----
 
-== Add tests
+=== Add tests
 
 Implement two types of tests for the use case:
 
 1. Add a test for the use case which mocks the REST client and checks the use case logic. You may want to use `+InjectMock+`.
 2. Add a test which tests the integration with the REST API. For this stub the Bored API with WireMock on network level. The communication should be transparently handled by WireMock and the test must not talk to the real service. Refer to the relevant Quarkus guide linked below.
 
-== Code Snippets (hints)
+=== Code Snippets (hints)
 
 .TaskService.java (REST layer)
 [source,java]
@@ -87,7 +87,7 @@ public class UcAddRandomActivityTaskItem {
 }
 ----
 
-== Links
+=== Links
 
 - https://quarkus.io/guides/rest-client-reactive
 - https://quarkus.io/guides/rest-client#using-a-mock-http-server-for-tests
