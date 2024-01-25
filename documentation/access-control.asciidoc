@@ -1,12 +1,12 @@
 :toc: macro
 toc::[]
 
-= Access-Control
+== Access-Control
 
 Now, we will create the authorization for our application.
 We will learn how to create permission and groups as well as how to apply permisions to business logic.
 
-== Authentication
+=== Authentication
 
 The authentication will happen via IAM where we use keycloak.
 To integrate this into our application all we need to do is adding these dependencies to our `backend/pom.xml`:
@@ -23,12 +23,12 @@ To integrate this into our application all we need to do is adding these depende
 </dependency>
 ----
 
-== Authorization
+=== Authorization
 
 We have already prepared the class `ApplicationAccessControlConfig` for you containing the available permissions of our application.
 Next we extend our use-cases with authorization so they can only be executed by users with the required permission.
 
-=== Use-Cases
+==== Use-Cases
 
 All we need to do is to annotate all our public use-case methods with `@RolesAllowed` specifying the according permission as in the following example:
 
@@ -45,7 +45,7 @@ public class UcDeleteTaskItem {
   // ...
 ----
 
-=== Test
+==== Test
 
 Now, we want to test our authorization via JUnit.
 All we need to do is add the following annotation to our use-case test methods as in the following example:
@@ -61,7 +61,7 @@ public void testDeleteTaskItem() {
 
 If have not yet created tests for use-cases, create them now.
 
-=== Links
+==== Links
 
 * https://github.com/devonfw/devon4j/blob/develop/documentation/guide-access-control.asciidoc#access-control[devon4j: Access-Control]
 * https://github.com/devonfw/devon4j/blob/develop/documentation/guide-security.asciidoc#security[devon4j: Security]

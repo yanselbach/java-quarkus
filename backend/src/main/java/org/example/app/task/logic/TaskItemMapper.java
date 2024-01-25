@@ -10,7 +10,7 @@ import org.mapstruct.Mapper;
 /**
  * {@link Mapper} for {@link org.example.app.task.common.TaskItem}.
  */
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = "jakarta")
 public interface TaskItemMapper {
 
   /**

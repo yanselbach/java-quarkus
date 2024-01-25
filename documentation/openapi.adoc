@@ -1,20 +1,20 @@
 :toc: macro
 toc::[]
 
-= OpenAPI
+== OpenAPI
 
 In this chapter we are going to generate a OpenAPI specification for our REST API using a code-first approach.
 
 When running the application in dev mode you can reach the Swagger UI at http://localhost:8080/q/swagger-ui which allows you to browse and interact with the REST API.
 The descriptions are automatically generated based on a OpenAPI specification of the service which we have pre-defined and added to the service (design-first).
 
-== Remove existing OpenAPI specification
+=== Remove existing OpenAPI specification
 
 Delete the existing openapi.yml file in your backend service at `+/src/main/resources+`. You may also want to keep a backup for later review. 
 
 Restart the application and check the Swagger UI. What do you see?
 
-== Add basic information
+=== Add basic information
 
 We want to provide some basic information about our REST API such as its name. This can be done via code or configuration. In our case we want to provide it via configuration. 
 Add the following properties to your `+application.properties+`:
@@ -38,13 +38,13 @@ quarkus.smallrye-openapi.store-schema-directory=target/openapi
 
 Observe the changes in Swagger UI. Look up what each parameter does in the documentation and observe what happens when you update the values.
 
-== Annotate your REST API and ETOs
+=== Annotate your REST API and ETOs
 
 Now we want to add further information about the available operations, their input and output data formats and descriptions to our REST API.
 
 Refer to the Quarkus Guide and MicroProfile OpenAPI specification (see below) and start annotating the REST API service methods (JAX-RS class/interface) and your ETOs. You may want to refer to the OpenAPI specification which you removed (and hopefully backed up) to get inspiration on what you could and should describe. Here you can find examples of usage for key annotations `+@Operation+`, `+@APIResponse+`, `+@Parameter+`: https://download.eclipse.org/microprofile/microprofile-open-api-3.0/microprofile-openapi-spec-3.0.html#_detailed_usage_of_key_annotations
 
-== Links
+=== Links
 
 - https://download.eclipse.org/microprofile/microprofile-open-api-3.0/microprofile-openapi-spec-3.0.html
 - https://quarkus.io/guides/openapi-swaggerui

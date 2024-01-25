@@ -3,8 +3,6 @@ package org.example.app.task.dataaccess;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.assertj.core.api.Assertions;
 import org.example.app.general.common.search.LikePatternSyntax;
 import org.example.app.general.common.search.SortOrderBy;
@@ -14,18 +12,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 
 import io.quarkus.test.junit.QuarkusTest;
+import jakarta.inject.Inject;
 
 /**
  * Test of {@link TaskItemRepository}.
  */
 @QuarkusTest
-public class TaskItemRepositoryTest extends Assertions {
+class TaskItemRepositoryTest extends Assertions {
 
   @Inject
-  private TaskItemRepository taskItemRepository;
+  TaskItemRepository taskItemRepository;
 
   @Test
-  public void testFindById() {
+  void testFindById() {
 
     // given
     Long itemId = 11L;
@@ -38,7 +37,7 @@ public class TaskItemRepositoryTest extends Assertions {
   }
 
   @Test
-  public void testFindByFlags() {
+  void testFindByFlags() {
 
     // given
     boolean completed = false;
@@ -52,7 +51,7 @@ public class TaskItemRepositoryTest extends Assertions {
   }
 
   @Test
-  public void testFindByDeadline() {
+  void testFindByDeadline() {
 
     // given
     LocalDateTime deadline = LocalDateTime.of(2022, 12, 22, 23, 59);
@@ -65,7 +64,7 @@ public class TaskItemRepositoryTest extends Assertions {
   }
 
   @Test
-  public void testFindByCriteria() {
+  void testFindByCriteria() {
 
     // given
     TaskItemSearchCriteria criteria = new TaskItemSearchCriteria();
